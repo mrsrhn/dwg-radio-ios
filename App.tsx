@@ -10,9 +10,7 @@ export default function App() {
       <View style={{ flex: 1 }}>
         <DWGPager />
       </View>
-
       <View style={{ height: "60%", backgroundColor: "blue" }}></View>
-
       <DWGBottomSheet />
     </GestureHandlerRootView>
   );
