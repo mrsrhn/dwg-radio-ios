@@ -1,8 +1,9 @@
 import BottomSheet from '@gorhom/bottom-sheet';
-import { View, Text } from 'react-native';
+import { observer } from 'mobx-react-lite';
 import React, { useCallback, useMemo, useRef } from 'react';
+import PlayerControls from './PlayerControls';
 
-function DWGBottomSheet() {
+const DWGBottomSheet = observer(() => {
   const bottomSheetRef = useRef<BottomSheet>(null);
   const snapPoints = useMemo(() => ['60%', '90%'], []);
 
@@ -18,11 +19,9 @@ function DWGBottomSheet() {
       onChange={handleSheetChanges}
       animateOnMount={false}
     >
-      <View>
-        <Text>BottomSheet</Text>
-      </View>
+      <PlayerControls />
     </BottomSheet>
   );
-}
+});
 
 export default DWGBottomSheet;
