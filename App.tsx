@@ -1,8 +1,8 @@
-import React from "react";
-import { DWGPager } from "./src/DWGPager";
-import { View } from "react-native";
-import { DWGBottomSheet } from "./src/DWGBottomSheet";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+import React from 'react';
+import { View } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import DWGPager from './src/DWGPager';
+import DWGBottomSheet from './src/DWGBottomSheet';
 
 export default function App() {
   return (
@@ -10,7 +10,7 @@ export default function App() {
       <View style={{ flex: 1 }}>
         <DWGPager />
       </View>
-      <View style={{ height: "60%", backgroundColor: "blue" }}></View>
+      <View style={{ height: '60%', backgroundColor: 'blue' }} />
       <DWGBottomSheet />
     </GestureHandlerRootView>
   );

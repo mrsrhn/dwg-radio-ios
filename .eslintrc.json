@@ -16,7 +16,10 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-
   "plugins": ["@typescript-eslint", "react"],
-  "rules": {}
+  "rules": {
+    "no-console": "off",
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error", { "variables": false }]
+  }
 }

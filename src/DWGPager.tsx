@@ -1,8 +1,8 @@
-import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import PagerView from "react-native-pager-view";
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import PagerView from 'react-native-pager-view';
 
-export const DWGPager = () => {
+function DWGPager() {
   return (
     <View style={{ flex: 1 }}>
       <PagerView style={styles.viewPager} initialPage={1}>
@@ -18,15 +18,17 @@ export const DWGPager = () => {
       </PagerView>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   viewPager: {
     flex: 1,
   },
   page: {
-    backgroundColor: "green",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: 'green',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
+
+export default DWGPager;
