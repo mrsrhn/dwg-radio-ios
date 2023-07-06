@@ -13,4 +13,5 @@ interface ConfigColors {
   dwgLightColor: string;
   dwgAlarmColor: string;
   dwgGreyColor: string;
+  dwgBackgroundColor: string;
 }

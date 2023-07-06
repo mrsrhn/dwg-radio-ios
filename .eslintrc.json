@@ -16,14 +16,18 @@
     "sourceType": "module",
     "project": "./tsconfig.json"
   },
-  "plugins": ["@typescript-eslint", "react"],
+  "plugins": ["@typescript-eslint", "react", "react-native"],
   "rules": {
+    "global-require": "off",
     "no-console": "off",
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": [
       "error",
       { "variables": false }
     ],
-    "@typescript-eslint/comma-dangle": "off"
+    "@typescript-eslint/comma-dangle": "off",
+    "react-native/no-unused-styles": "error",
+    "implicit-arrow-linebreak": "off",
+    "object-curly-newline": "off"
   }
 }
