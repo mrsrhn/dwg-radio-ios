@@ -1,9 +1,11 @@
 import { action, makeObservable, observable } from 'mobx';
 import {
   Audio,
+  AudioMode,
   AVMetadata,
   AVPlaybackStatusError,
   AVPlaybackStatusSuccess,
+  InterruptionModeIOS,
 } from 'expo-av';
 import { Config } from '../types/config';
 
@@ -62,6 +64,13 @@ class PlayerStore {
   private onPlaybackStatusUpdate = (
     status: AVPlaybackStatusError | AVPlaybackStatusSuccess
   ) => {
+    const partialMode: Partial<AudioMode> = {
+      allowsRecordingIOS: false,
+      interruptionModeIOS: InterruptionModeIOS.MixWithOthers,
+      playsInSilentModeIOS: true,
+      staysActiveInBackground: true,
+    };
+    Audio.setAudioModeAsync(partialMode);
     this.setIsLoaded(status.isLoaded);
     if ('isPlaying' in status) {
       this.setIsPlaying(status.isPlaying);
@@ -72,6 +81,7 @@ class PlayerStore {
   };
 
   private onMetadataUpdate = (metadata: AVMetadata) => {
+    console.log('meta: ', metadata.title);
     this.setTitle(metadata.title ?? '');
   };
 }

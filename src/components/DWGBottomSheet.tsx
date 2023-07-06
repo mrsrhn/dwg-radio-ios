@@ -2,6 +2,7 @@ import BottomSheet from '@gorhom/bottom-sheet';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useMemo, useRef } from 'react';
 import PlayerControls from './PlayerControls';
+import Title from './Title';
 
 const DWGBottomSheet = observer(() => {
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -19,6 +20,7 @@ const DWGBottomSheet = observer(() => {
       onChange={handleSheetChanges}
       animateOnMount={false}
     >
+      <Title />
       <PlayerControls />
     </BottomSheet>
   );
