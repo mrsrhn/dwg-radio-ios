@@ -4,7 +4,9 @@ export interface Config {
 }
 
 interface ConfigBase {
-  url: string;
+  urlRadio: string;
+  urlPur: string;
+  urlLyra: string;
 }
 
 interface ConfigColors {

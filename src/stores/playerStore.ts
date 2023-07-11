@@ -1,4 +1,4 @@
-import { action, makeObservable, observable } from 'mobx';
+import { action, computed, makeObservable, observable } from 'mobx';
 import {
   Audio,
   AudioMode,
@@ -9,21 +9,31 @@ import {
 } from 'expo-av';
 import { Config } from '../types/config';
 
+export type Channel = 'lyra' | 'radio' | 'pur';
+
 class PlayerStore {
   isLoaded = false;
 
   isPlaying = false;
 
-  player: Audio.Sound | undefined = undefined;
+  playerRadio: Audio.Sound | undefined = undefined;
 
-  title = '';
+  playerPur: Audio.Sound | undefined = undefined;
+
+  playerLyra: Audio.Sound | undefined = undefined;
+
+  selectedChannel: Channel = 'radio';
+
+  metaData = '';
 
   config: Config;
 
   constructor(config: Config) {
     makeObservable(this, {
       isPlaying: observable,
-      title: observable,
+      metaData: observable,
+      selectedChannel: observable,
+      currentPlayerObject: computed,
     });
     this.config = config;
     this.initAudioPlayer();
@@ -37,29 +47,71 @@ class PlayerStore {
     this.isLoaded = isLoaded;
   });
 
-  setTitle = action((title: string) => {
-    this.title = title;
+  setMetaData = action((metaData: string) => {
+    this.metaData = metaData;
   });
 
+  setSelectedChannel = action((channel: Channel) => {
+    this.selectedChannel = channel;
+  });
+
+  updateChannel = async (selectedChannel: Channel) => {
+    this.setSelectedChannel(selectedChannel);
+    if (!this.isPlaying) return;
+    await Promise.all(
+      [this.playerLyra, this.playerRadio, this.playerPur].map((playerObject) =>
+        playerObject?.pauseAsync()
+      )
+    );
+    switch (selectedChannel) {
+      case 'lyra':
+        this.playerLyra?.playAsync();
+        break;
+      case 'radio':
+        this.playerRadio?.playAsync();
+        break;
+      case 'pur':
+        this.playerPur?.playAsync();
+        break;
+      default:
+        break;
+    }
+  };
+
   togglePlayer = () => {
-    if (!this.player) return;
+    if (!this.currentPlayerObject) return;
     if (this.isPlaying) {
-      this.player.pauseAsync();
+      this.currentPlayerObject.pauseAsync();
     } else {
-      this.player.playAsync();
+      this.currentPlayerObject.playAsync();
     }
   };
 
   initAudioPlayer = async () => {
-    const { sound: playbackObject } = await Audio.Sound.createAsync(
-      { uri: this.config.configBase.url },
-      {},
-      this.onPlaybackStatusUpdate
+    const { urlRadio, urlLyra, urlPur } = this.config.configBase;
+    const playbackObjects = await Promise.all(
+      [urlRadio, urlLyra, urlPur].map((uri) =>
+        Audio.Sound.createAsync({ uri }, {}, this.onPlaybackStatusUpdate)
+      )
     );
-    playbackObject.setOnMetadataUpdate(this.onMetadataUpdate);
 
-    this.player = playbackObject;
+    this.playerRadio = playbackObjects[0].sound;
+    this.playerLyra = playbackObjects[1].sound;
+    this.playerPur = playbackObjects[2].sound;
   };
+
+  get currentPlayerObject() {
+    switch (this.selectedChannel) {
+      case 'radio':
+        return this.playerRadio;
+      case 'lyra':
+        return this.playerLyra;
+      case 'pur':
+        return this.playerPur;
+      default:
+        return undefined;
+    }
+  }
 
   private onPlaybackStatusUpdate = (
     status: AVPlaybackStatusError | AVPlaybackStatusSuccess
@@ -82,7 +134,7 @@ class PlayerStore {
 
   private onMetadataUpdate = (metadata: AVMetadata) => {
     console.log('meta: ', metadata.title);
-    this.setTitle(metadata.title ?? '');
+    this.setMetaData(metadata.title ?? '');
   };
 }
 

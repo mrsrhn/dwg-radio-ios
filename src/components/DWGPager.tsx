@@ -3,11 +3,18 @@ import { Animated, Dimensions, StyleSheet, View } from 'react-native';
 import PagerView, {
   PagerViewOnPageScrollEventData,
 } from 'react-native-pager-view';
-import { Image } from 'expo-image';
+import { Image, ImageSource } from 'expo-image';
 import { ScalingDot } from 'react-native-animated-pagination-dots';
 import useConfig from '../hooks/useConfig';
+import { Channel } from '../stores/playerStore';
+import useStores from '../hooks/useStores';
 
-const CHANNELS = [
+interface ChannelData {
+  key: Channel;
+  imgSource: ImageSource;
+}
+
+const CHANNELS: ChannelData[] = [
   { key: 'lyra', imgSource: require('../../assets/channels/lyra.jpg') },
   { key: 'radio', imgSource: require('../../assets/channels/radio.jpg') },
   { key: 'pur', imgSource: require('../../assets/channels/pur.jpg') },
@@ -15,6 +22,7 @@ const CHANNELS = [
 
 function DWGPager() {
   const { configColors } = useConfig();
+  const { playerStore } = useStores();
 
   const { width } = Dimensions.get('window');
   const scrollOffsetAnimatedValue = React.useRef(new Animated.Value(0)).current;
@@ -47,6 +55,22 @@ function DWGPager() {
     []
   );
 
+  const onPageSelect = (page: number) => {
+    switch (page) {
+      case 0:
+        playerStore.updateChannel('lyra');
+        break;
+      case 1:
+        playerStore.updateChannel('radio');
+        break;
+      case 2:
+        playerStore.updateChannel('pur');
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <View style={styles.container}>
       <PagerView
@@ -56,6 +80,7 @@ function DWGPager() {
         }}
         initialPage={1}
         onPageScroll={onPageScroll}
+        onPageSelected={(e) => onPageSelect(e.nativeEvent.position)}
       >
         {CHANNELS.map((channel) => (
           <View style={styles.page} key={channel.key}>
