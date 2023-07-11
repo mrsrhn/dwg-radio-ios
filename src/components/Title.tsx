@@ -4,8 +4,8 @@ import { Text } from 'react-native';
 import useStores from '../hooks/useStores';
 
 const Title = observer(() => {
-  const { playerStore } = useStores();
-  return <Text>{playerStore.metaData}</Text>;
+  const { metaDataStore } = useStores();
+  return <Text>{metaDataStore.currentTitle}</Text>;
 });
 
 export default Title;
