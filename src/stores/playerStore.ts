@@ -2,7 +2,6 @@ import { action, computed, makeObservable, observable } from 'mobx';
 import {
   Audio,
   AudioMode,
-  AVMetadata,
   AVPlaybackStatusError,
   AVPlaybackStatusSuccess,
   InterruptionModeIOS,
@@ -24,14 +23,11 @@ class PlayerStore {
 
   selectedChannel: Channel = 'radio';
 
-  metaData = '';
-
   config: Config;
 
   constructor(config: Config) {
     makeObservable(this, {
       isPlaying: observable,
-      metaData: observable,
       selectedChannel: observable,
       currentPlayerObject: computed,
     });
@@ -45,10 +41,6 @@ class PlayerStore {
 
   setIsLoaded = action((isLoaded: boolean) => {
     this.isLoaded = isLoaded;
-  });
-
-  setMetaData = action((metaData: string) => {
-    this.metaData = metaData;
   });
 
   setSelectedChannel = action((channel: Channel) => {
@@ -130,11 +122,6 @@ class PlayerStore {
       console.error(status.error);
       this.setIsPlaying(false);
     }
-  };
-
-  private onMetadataUpdate = (metadata: AVMetadata) => {
-    console.log('meta: ', metadata.title);
-    this.setMetaData(metadata.title ?? '');
   };
 }
 
