@@ -5,7 +5,7 @@ import useStores from '../hooks/useStores';
 
 const Title = observer(() => {
   const { playerStore } = useStores();
-  return <Text>{playerStore.title}</Text>;
+  return <Text>{playerStore.metaData}</Text>;
 });
 
 export default Title;
