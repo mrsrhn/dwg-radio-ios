@@ -17,9 +17,15 @@ class PlayerStore {
 
   playerRadio: Audio.Sound | undefined = undefined;
 
+  metaRadio = '';
+
   playerPur: Audio.Sound | undefined = undefined;
 
+  metaPur = '';
+
   playerLyra: Audio.Sound | undefined = undefined;
+
+  metaLyra = '';
 
   selectedChannel: Channel = 'radio';
 
@@ -30,6 +36,9 @@ class PlayerStore {
       isPlaying: observable,
       selectedChannel: observable,
       currentPlayerObject: computed,
+      metaLyra: observable,
+      metaRadio: observable,
+      metaPur: observable,
     });
     this.config = config;
     this.initAudioPlayer();
@@ -45,6 +54,18 @@ class PlayerStore {
 
   setSelectedChannel = action((channel: Channel) => {
     this.selectedChannel = channel;
+  });
+
+  setMetaRadio = action((meta: string) => {
+    this.metaRadio = meta;
+  });
+
+  setMetaLyra = action((meta: string) => {
+    this.metaLyra = meta;
+  });
+
+  setMetaPur = action((meta: string) => {
+    this.metaPur = meta;
   });
 
   updateChannel = async (selectedChannel: Channel) => {
@@ -81,15 +102,23 @@ class PlayerStore {
 
   initAudioPlayer = async () => {
     const { urlRadio, urlLyra, urlPur } = this.config.configBase;
+
+    // TODO: if one of the streams is offline, the method breaks here. We have to handle that.
     const playbackObjects = await Promise.all(
-      [urlRadio, urlLyra, urlPur].map((uri) =>
-        Audio.Sound.createAsync({ uri }, {}, this.onPlaybackStatusUpdate)
+      [urlRadio, urlLyra, urlPur].map((url) =>
+        Audio.Sound.createAsync({ uri: url }, {}, this.onPlaybackStatusUpdate)
       )
     );
 
     this.playerRadio = playbackObjects[0].sound;
     this.playerLyra = playbackObjects[1].sound;
     this.playerPur = playbackObjects[2].sound;
+
+    this.playerRadio.setOnMetadataUpdate((m) =>
+      this.setMetaRadio(m.title ?? '')
+    );
+    this.playerLyra.setOnMetadataUpdate((m) => this.setMetaLyra(m.title ?? ''));
+    this.playerPur.setOnMetadataUpdate((m) => this.setMetaPur(m.title ?? ''));
   };
 
   get currentPlayerObject() {

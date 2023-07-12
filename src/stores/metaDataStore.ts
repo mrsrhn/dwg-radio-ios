@@ -1,4 +1,4 @@
-import { action, computed, makeObservable, observable } from 'mobx';
+import { computed, makeObservable } from 'mobx';
 
 import { Config } from '../types/config';
 import PlayerStore from './playerStore';
@@ -8,46 +8,35 @@ class MetaDataStore {
 
   playerStore: PlayerStore;
 
-  metaRadio = '';
-
-  metaLyra = '';
-
-  metaPur = '';
-
   constructor(config: Config, playerStore: PlayerStore) {
     makeObservable(this, {
-      metaRadio: observable,
-      metaLyra: observable,
-      metaPur: observable,
+      currentMetaData: computed,
       currentTitle: computed,
+      currentInterpret: computed,
     });
     this.config = config;
     this.playerStore = playerStore;
   }
 
-  setMetaRadio = action((metaData: string) => {
-    this.metaRadio = metaData;
-  });
-
-  setMetaLyra = action((metaData: string) => {
-    this.metaLyra = metaData;
-  });
-
-  setMetaPur = action((metaData: string) => {
-    this.metaPur = metaData;
-  });
-
-  get currentTitle() {
+  get currentMetaData() {
     switch (this.playerStore.selectedChannel) {
       case 'lyra':
-        return this.metaLyra;
+        return this.playerStore.metaLyra;
       case 'radio':
-        return this.metaRadio;
+        return this.playerStore.metaRadio;
       case 'pur':
-        return this.metaPur;
+        return this.playerStore.metaPur;
       default:
         return '';
     }
+  }
+
+  get currentTitle() {
+    return this.currentMetaData.split(' - ')[1] ?? '';
+  }
+
+  get currentInterpret() {
+    return this.currentMetaData.split(' - ')[0] ?? '';
   }
 }
 
