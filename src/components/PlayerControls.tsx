@@ -15,11 +15,9 @@ const PlayerControls = observer(() => {
     ? 'pause-circle-outline'
     : 'play-circle-outline';
 
-  const onPlayButtonPress = playerStore.togglePlayer;
-
   return (
     <View style={styles.container}>
-      <Pressable onPress={onPlayButtonPress}>
+      <Pressable onPress={playerStore.togglePlayer}>
         <MaterialIcons
           color={config.configColors.dwgDarkColor}
           style={{
