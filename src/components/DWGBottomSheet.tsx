@@ -1,12 +1,13 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useMemo, useRef } from 'react';
+import { View } from 'react-native';
 import PlayerControls from './PlayerControls';
 import Title from './Title';
 
 const DWGBottomSheet = observer(() => {
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ['60%', '90%'], []);
+  const snapPoints = useMemo(() => ['50%', '90%'], []);
 
   const handleSheetChanges = useCallback((index: number) => {
     console.log('handleSheetChanges', index);
@@ -20,8 +21,10 @@ const DWGBottomSheet = observer(() => {
       onChange={handleSheetChanges}
       animateOnMount={false}
     >
-      <Title />
-      <PlayerControls />
+      <View style={{ height: '50%', justifyContent: 'space-between' }}>
+        <Title />
+        <PlayerControls />
+      </View>
     </BottomSheet>
   );
 });

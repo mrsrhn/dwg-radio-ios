@@ -9,7 +9,10 @@ const Title = observer(() => {
   const { configColors } = useConfig();
   return (
     <View style={styles.container}>
-      <Text style={{ ...styles.title, color: configColors.dwgDarkColor }}>
+      <Text
+        lineBreakMode="middle"
+        style={{ ...styles.title, color: configColors.dwgDarkColor }}
+      >
         {metaDataStore.currentTitle}
       </Text>
       <Text style={{ ...styles.subTitle, color: configColors.dwgDarkColor }}>
@@ -28,11 +31,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 18,
     marginBottom: 5,
+    paddingHorizontal: 10,
   },
   subTitle: {
     textAlign: 'center',
     fontSize: 18,
-    marginBottom: 10,
+    paddingHorizontal: 10,
   },
 });
 export default Title;

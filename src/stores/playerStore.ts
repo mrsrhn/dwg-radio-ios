@@ -39,6 +39,7 @@ class PlayerStore {
       metaLyra: observable,
       metaRadio: observable,
       metaPur: observable,
+      currentUri: computed,
     });
     this.config = config;
     this.initAudioPlayer();
@@ -73,18 +74,18 @@ class PlayerStore {
     if (!this.isPlaying) return;
     await Promise.all(
       [this.playerLyra, this.playerRadio, this.playerPur].map((playerObject) =>
-        playerObject?.pauseAsync()
+        playerObject?.setIsMutedAsync(true)
       )
     );
     switch (selectedChannel) {
       case 'lyra':
-        this.playerLyra?.playAsync();
+        this.playerLyra?.setIsMutedAsync(false);
         break;
       case 'radio':
-        this.playerRadio?.playAsync();
+        this.playerRadio?.setIsMutedAsync(false);
         break;
       case 'pur':
-        this.playerPur?.playAsync();
+        this.playerPur?.setIsMutedAsync(false);
         break;
       default:
         break;
@@ -94,25 +95,41 @@ class PlayerStore {
   togglePlayer = () => {
     if (!this.currentPlayerObject) return;
     if (this.isPlaying) {
-      this.currentPlayerObject.pauseAsync();
+      this.currentPlayerObject.setIsMutedAsync(true);
     } else {
-      this.currentPlayerObject.playAsync();
+      this.currentPlayerObject.setIsMutedAsync(false);
     }
   };
 
   initAudioPlayer = async () => {
+    const partialMode: Partial<AudioMode> = {
+      allowsRecordingIOS: false,
+      interruptionModeIOS: InterruptionModeIOS.MixWithOthers,
+      playsInSilentModeIOS: true,
+      staysActiveInBackground: true,
+    };
+    Audio.setAudioModeAsync(partialMode);
+
     const { urlRadio, urlLyra, urlPur } = this.config.configBase;
 
     // TODO: if one of the streams is offline, the method breaks here. We have to handle that.
     const playbackObjects = await Promise.all(
       [urlRadio, urlLyra, urlPur].map((url) =>
-        Audio.Sound.createAsync({ uri: url }, {}, this.onPlaybackStatusUpdate)
+        Audio.Sound.createAsync(
+          { uri: url },
+          { isMuted: true },
+          this.onPlaybackStatusUpdate
+        )
       )
     );
 
     this.playerRadio = playbackObjects[0].sound;
     this.playerLyra = playbackObjects[1].sound;
     this.playerPur = playbackObjects[2].sound;
+
+    this.playerRadio.playAsync();
+    this.playerLyra.playAsync();
+    this.playerPur.playAsync();
 
     this.playerRadio.setOnMetadataUpdate((m) =>
       this.setMetaRadio(m.title ?? '')
@@ -134,19 +151,26 @@ class PlayerStore {
     }
   }
 
+  get currentUri() {
+    switch (this.selectedChannel) {
+      case 'radio':
+        return this.config.configBase.urlRadio;
+      case 'lyra':
+        return this.config.configBase.urlLyra;
+      case 'pur':
+        return this.config.configBase.urlPur;
+      default:
+        return undefined;
+    }
+  }
+
   private onPlaybackStatusUpdate = (
     status: AVPlaybackStatusError | AVPlaybackStatusSuccess
   ) => {
-    const partialMode: Partial<AudioMode> = {
-      allowsRecordingIOS: false,
-      interruptionModeIOS: InterruptionModeIOS.MixWithOthers,
-      playsInSilentModeIOS: true,
-      staysActiveInBackground: true,
-    };
-    Audio.setAudioModeAsync(partialMode);
+    if ('uri' in status && status.uri !== this.currentUri) return;
     this.setIsLoaded(status.isLoaded);
-    if ('isPlaying' in status) {
-      this.setIsPlaying(status.isPlaying);
+    if ('isMuted' in status) {
+      this.setIsPlaying(!status.isMuted);
     } else if (status.error) {
       console.error(status.error);
       this.setIsPlaying(false);

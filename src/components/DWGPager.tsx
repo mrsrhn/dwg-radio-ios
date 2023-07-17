@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
+import { observer } from 'mobx-react-lite';
 import { Animated, Dimensions, StyleSheet, View } from 'react-native';
 import PagerView, {
   PagerViewOnPageScrollEventData,
@@ -20,9 +21,48 @@ const CHANNELS: ChannelData[] = [
   { key: 'pur', imgSource: require('../../assets/channels/pur.jpg') },
 ];
 
-function DWGPager() {
+const DWGPager = observer(() => {
   const { configColors } = useConfig();
   const { playerStore } = useStores();
+  const pagerRef = useRef<PagerView>(null);
+
+  const onPageSelect = useCallback(
+    (page: number) => {
+      switch (page) {
+        case 0:
+          playerStore.updateChannel('lyra');
+          break;
+        case 1:
+          playerStore.updateChannel('radio');
+          break;
+        case 2:
+          playerStore.updateChannel('pur');
+          break;
+        default:
+          break;
+      }
+    },
+    [playerStore]
+  );
+
+  useEffect(() => {
+    switch (playerStore.selectedChannel) {
+      case 'lyra':
+        pagerRef.current?.setPage(0);
+        onPageSelect(0);
+        break;
+      case 'radio':
+        pagerRef.current?.setPage(1);
+        onPageSelect(1);
+        break;
+      case 'pur':
+        pagerRef.current?.setPage(2);
+        onPageSelect(2);
+        break;
+      default:
+        break;
+    }
+  }, [playerStore.selectedChannel, onPageSelect]);
 
   const { width } = Dimensions.get('window');
   const scrollOffsetAnimatedValue = React.useRef(new Animated.Value(0)).current;
@@ -55,25 +95,10 @@ function DWGPager() {
     []
   );
 
-  const onPageSelect = (page: number) => {
-    switch (page) {
-      case 0:
-        playerStore.updateChannel('lyra');
-        break;
-      case 1:
-        playerStore.updateChannel('radio');
-        break;
-      case 2:
-        playerStore.updateChannel('pur');
-        break;
-      default:
-        break;
-    }
-  };
-
   return (
     <View style={styles.container}>
       <PagerView
+        ref={pagerRef}
         style={{
           ...styles.viewPager,
           backgroundColor: configColors.dwgBackgroundColor,
@@ -102,7 +127,7 @@ function DWGPager() {
       />
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -116,8 +141,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   channelImage: {
-    marginVertical: 75,
-    marginHorizontal: 50,
+    marginVertical: 90,
+    marginHorizontal: 20,
     flex: 1,
     borderRadius: 20,
   },

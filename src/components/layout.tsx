@@ -13,7 +13,7 @@ function Layout() {
       </View>
       <View
         style={{
-          height: '60%',
+          height: '50%',
           backgroundColor: configColors.dwgBackgroundColor,
         }}
       />
