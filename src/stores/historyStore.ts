@@ -28,15 +28,15 @@ class HistoryStore {
   }
 
   async init() {
-    this.setHistoryRadio(
-      await HistoryStore.getHistory(this.config.configBase.urlHistoryRadio)
-    );
-    this.setHistoryLyra(
-      await HistoryStore.getHistory(this.config.configBase.urlHistoryLyra)
-    );
-    this.setHistoryPur(
-      await HistoryStore.getHistory(this.config.configBase.urlHistoryPur)
-    );
+    const data = await Promise.all([
+      HistoryStore.getHistory(this.config.configBase.urlHistoryRadio),
+      HistoryStore.getHistory(this.config.configBase.urlHistoryLyra),
+      HistoryStore.getHistory(this.config.configBase.urlHistoryPur),
+    ]);
+
+    this.setHistoryRadio(data[0]);
+    this.setHistoryLyra(data[1]);
+    this.setHistoryPur(data[2]);
   }
 
   setHistoryRadio = action((history: HistoryEntry[]) => {
