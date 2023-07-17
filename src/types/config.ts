@@ -7,6 +7,9 @@ interface ConfigBase {
   urlRadio: string;
   urlPur: string;
   urlLyra: string;
+  urlHistoryRadio: string;
+  urlHistoryPur: string;
+  urlHistoryLyra: string;
 }
 
 interface ConfigColors {
