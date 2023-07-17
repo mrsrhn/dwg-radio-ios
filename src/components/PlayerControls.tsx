@@ -60,7 +60,7 @@ const PlayerControls = observer(() => {
           color={config.configColors.dwgDarkColor}
           style={{
             paddingHorizontal: 20,
-            height: PLAYBUTTON_SIZE, // needed as workaround for this bug: https://github.com/gorhom/react-native-bottom-sheet/issues/1218
+            height: PLAYBUTTON_SIZE, // TODO: necessary as workaround for this bug: https://github.com/gorhom/react-native-bottom-sheet/issues/1218
           }}
           size={PLAYBUTTON_SIZE}
           name={playButtonIconName}
