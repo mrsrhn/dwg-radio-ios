@@ -8,7 +8,7 @@ interface HistoryItemProps {
   time: string;
 }
 
-function HistoryItem(props: HistoryItemProps) {
+function HistoryViewItem(props: HistoryItemProps) {
   const { title, artist, time } = props;
   return (
     <View style={styles.container}>
@@ -47,4 +47,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HistoryItem;
+export default HistoryViewItem;
