@@ -1,6 +1,7 @@
-import { makeObservable, observable, action } from 'mobx';
+import { makeObservable, observable, action, computed } from 'mobx';
 
 import { Config } from '../types/config';
+import PlayerStore from './playerStore';
 
 interface HistoryEntry {
   artist: string;
@@ -11,19 +12,23 @@ interface HistoryEntry {
 class HistoryStore {
   config: Config;
 
+  playerStore: PlayerStore;
+
   historyRadio: HistoryEntry[] = [];
 
   historyPur: HistoryEntry[] = [];
 
   historyLyra: HistoryEntry[] = [];
 
-  constructor(config: Config) {
+  constructor(config: Config, playerStore: PlayerStore) {
     makeObservable(this, {
       historyRadio: observable,
       historyLyra: observable,
       historyPur: observable,
+      currentHistory: computed,
     });
     this.config = config;
+    this.playerStore = playerStore;
     this.init();
   }
 
@@ -50,6 +55,19 @@ class HistoryStore {
   setHistoryLyra = action((history: HistoryEntry[]) => {
     this.historyLyra = history;
   });
+
+  get currentHistory() {
+    switch (this.playerStore.selectedChannel) {
+      case 'radio':
+        return this.historyRadio;
+      case 'lyra':
+        return this.historyLyra;
+      case 'pur':
+        return this.historyPur;
+      default:
+        return [];
+    }
+  }
 
   static async getHistory(url: string) {
     const { data } = await (await fetch(url)).json();

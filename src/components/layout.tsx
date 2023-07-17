@@ -1,11 +1,10 @@
 import React from 'react';
 import { View } from 'react-native';
-import useConfig from '../hooks/useConfig';
+import Colors from '../Colors';
 import DWGBottomSheet from './DWGBottomSheet';
 import DWGPager from './DWGPager';
 
 function Layout() {
-  const { configColors } = useConfig();
   return (
     <>
       <View style={{ flex: 1 }}>
@@ -14,7 +13,7 @@ function Layout() {
       <View
         style={{
           height: '50%',
-          backgroundColor: configColors.dwgBackgroundColor,
+          backgroundColor: Colors.dwgBackgroundColor,
         }}
       />
       <DWGBottomSheet />
