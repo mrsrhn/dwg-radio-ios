@@ -1,8 +1,11 @@
-import { makeObservable, observable } from 'mobx';
+import { makeObservable, observable, action } from 'mobx';
 
 import { Config } from '../types/config';
 
 interface HistoryEntry {
+  artist: string;
+  datetime: string;
+  raw_title: string;
   title: string;
 }
 class HistoryStore {
@@ -10,11 +13,47 @@ class HistoryStore {
 
   historyRadio: HistoryEntry[] = [];
 
+  historyPur: HistoryEntry[] = [];
+
+  historyLyra: HistoryEntry[] = [];
+
   constructor(config: Config) {
     makeObservable(this, {
       historyRadio: observable,
+      historyLyra: observable,
+      historyPur: observable,
     });
     this.config = config;
+    this.init();
+  }
+
+  async init() {
+    this.setHistoryRadio(
+      await HistoryStore.getHistory(this.config.configBase.urlHistoryRadio)
+    );
+    this.setHistoryLyra(
+      await HistoryStore.getHistory(this.config.configBase.urlHistoryLyra)
+    );
+    this.setHistoryPur(
+      await HistoryStore.getHistory(this.config.configBase.urlHistoryPur)
+    );
+  }
+
+  setHistoryRadio = action((history: HistoryEntry[]) => {
+    this.historyRadio = history;
+  });
+
+  setHistoryPur = action((history: HistoryEntry[]) => {
+    this.historyPur = history;
+  });
+
+  setHistoryLyra = action((history: HistoryEntry[]) => {
+    this.historyLyra = history;
+  });
+
+  static async getHistory(url: string) {
+    const { data } = await (await fetch(url)).json();
+    return data as HistoryEntry[];
   }
 }
 
