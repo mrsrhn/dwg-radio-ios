@@ -14,12 +14,14 @@ const HistoryView = observer(() => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{configStrings.lastPlayedString}</Text>
-      {historyStore.currentHistory.map((item) => (
-        <HistoryViewItem
-          title={item.title}
-          artist={item.artist}
-          time={getTimeFromIsoDate(item.datetime)}
-        />
+      {historyStore.currentHistory.slice(1).map((item) => (
+        <View key={item.raw_title}>
+          <HistoryViewItem
+            title={item.title}
+            artist={item.artist}
+            time={getTimeFromIsoDate(item.datetime)}
+          />
+        </View>
       ))}
     </View>
   );

@@ -1,4 +1,4 @@
-import { makeObservable, observable, action, computed } from 'mobx';
+import { makeObservable, observable, action, computed, reaction } from 'mobx';
 
 import { Config } from '../types/config';
 import PlayerStore from './playerStore';
@@ -9,6 +9,7 @@ interface HistoryEntry {
   raw_title: string;
   title: string;
 }
+
 class HistoryStore {
   config: Config;
 
@@ -30,18 +31,25 @@ class HistoryStore {
     this.config = config;
     this.playerStore = playerStore;
     this.init();
+
+    reaction(
+      () => this.playerStore.metaRadio,
+      () => this.updateHistoryRadio()
+    );
+    reaction(
+      () => this.playerStore.metaLyra,
+      () => this.updateHistoryLyra()
+    );
+    reaction(
+      () => this.playerStore.metaPur,
+      () => this.updateHistoryPur()
+    );
   }
 
-  async init() {
-    const data = await Promise.all([
-      HistoryStore.getHistory(this.config.configBase.urlHistoryRadio),
-      HistoryStore.getHistory(this.config.configBase.urlHistoryLyra),
-      HistoryStore.getHistory(this.config.configBase.urlHistoryPur),
-    ]);
-
-    this.setHistoryRadio(data[0]);
-    this.setHistoryLyra(data[1]);
-    this.setHistoryPur(data[2]);
+  init() {
+    this.updateHistoryRadio();
+    this.updateHistoryLyra();
+    this.updateHistoryPur();
   }
 
   setHistoryRadio = action((history: HistoryEntry[]) => {
@@ -55,6 +63,27 @@ class HistoryStore {
   setHistoryLyra = action((history: HistoryEntry[]) => {
     this.historyLyra = history;
   });
+
+  updateHistoryRadio = async () => {
+    const data = await HistoryStore.getHistory(
+      this.config.configBase.urlHistoryRadio
+    );
+    this.setHistoryRadio(data);
+  };
+
+  updateHistoryLyra = async () => {
+    const data = await HistoryStore.getHistory(
+      this.config.configBase.urlHistoryLyra
+    );
+    this.setHistoryLyra(data);
+  };
+
+  updateHistoryPur = async () => {
+    const data = await HistoryStore.getHistory(
+      this.config.configBase.urlHistoryPur
+    );
+    this.setHistoryPur(data);
+  };
 
   get currentHistory() {
     switch (this.playerStore.selectedChannel) {
