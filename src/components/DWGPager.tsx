@@ -6,9 +6,9 @@ import PagerView, {
 } from 'react-native-pager-view';
 import { Image, ImageSource } from 'expo-image';
 import { ScalingDot } from 'react-native-animated-pagination-dots';
-import useConfig from '../hooks/useConfig';
 import { Channel } from '../stores/playerStore';
 import useStores from '../hooks/useStores';
+import Colors from '../Colors';
 
 interface ChannelData {
   key: Channel;
@@ -22,7 +22,6 @@ const CHANNELS: ChannelData[] = [
 ];
 
 const DWGPager = observer(() => {
-  const { configColors } = useConfig();
   const { playerStore } = useStores();
   const pagerRef = useRef<PagerView>(null);
 
@@ -99,10 +98,7 @@ const DWGPager = observer(() => {
     <View style={styles.container}>
       <PagerView
         ref={pagerRef}
-        style={{
-          ...styles.viewPager,
-          backgroundColor: configColors.dwgBackgroundColor,
-        }}
+        style={styles.viewPager}
         initialPage={1}
         onPageScroll={onPageScroll}
         onPageSelected={(e) => onPageSelect(e.nativeEvent.position)}
@@ -122,8 +118,8 @@ const DWGPager = observer(() => {
         scrollX={scrollX as Animated.Value}
         inActiveDotOpacity={0.6}
         dotStyle={styles.paginationDot}
-        activeDotColor={configColors.dwgDarkColor}
-        inActiveDotColor={configColors.dwgGreyColor}
+        activeDotColor={Colors.dwgDarkColor}
+        inActiveDotColor={Colors.dwgGreyColor}
       />
     </View>
   );
@@ -135,6 +131,7 @@ const styles = StyleSheet.create({
   },
   viewPager: {
     flex: 1,
+    backgroundColor: Colors.dwgBackgroundColor,
   },
   page: {
     flex: 1,

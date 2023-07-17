@@ -1,7 +1,8 @@
 import BottomSheet from '@gorhom/bottom-sheet';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useMemo, useRef } from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+import HistoryView from './HistoryView';
 import PlayerControls from './PlayerControls';
 import Title from './Title';
 
@@ -21,12 +22,21 @@ const DWGBottomSheet = observer(() => {
       onChange={handleSheetChanges}
       animateOnMount={false}
     >
-      <View style={{ height: '50%', justifyContent: 'space-between' }}>
+      <View style={styles.container}>
         <Title />
         <PlayerControls />
+        <HistoryView />
       </View>
     </BottomSheet>
   );
+});
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 20,
+    height: '50%',
+    justifyContent: 'space-between',
+  },
 });
 
 export default DWGBottomSheet;

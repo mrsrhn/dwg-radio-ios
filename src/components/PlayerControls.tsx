@@ -3,14 +3,13 @@ import { observer } from 'mobx-react-lite';
 import { View, StyleSheet, Pressable } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import useStores from '../hooks/useStores';
-import useConfig from '../hooks/useConfig';
+import Colors from '../Colors';
 
 const PLAYBUTTON_SIZE = 70;
 const CHEVRON_SIZE = 30;
 
 const PlayerControls = observer(() => {
   const { playerStore } = useStores();
-  const config = useConfig();
 
   const playButtonIconName = playerStore.isPlaying
     ? 'pause-circle-outline'
@@ -52,12 +51,12 @@ const PlayerControls = observer(() => {
         <Ionicons
           name="chevron-back"
           size={CHEVRON_SIZE}
-          color={config.configColors.dwgDarkColor}
+          color={Colors.dwgDarkColor}
         />
       </Pressable>
       <Pressable onPress={playerStore.togglePlayer}>
         <MaterialIcons
-          color={config.configColors.dwgDarkColor}
+          color={Colors.dwgDarkColor}
           style={{
             paddingHorizontal: 20,
             height: PLAYBUTTON_SIZE, // TODO: necessary as workaround for this bug: https://github.com/gorhom/react-native-bottom-sheet/issues/1218
@@ -70,7 +69,7 @@ const PlayerControls = observer(() => {
         <Ionicons
           name="chevron-forward"
           size={CHEVRON_SIZE}
-          color={config.configColors.dwgDarkColor}
+          color={Colors.dwgDarkColor}
         />
       </Pressable>
     </View>

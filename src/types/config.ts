@@ -1,6 +1,6 @@
 export interface Config {
   configBase: ConfigBase;
-  configColors: ConfigColors;
+  configStrings: ConfigStrings;
 }
 
 interface ConfigBase {
@@ -12,11 +12,6 @@ interface ConfigBase {
   urlHistoryLyra: string;
 }
 
-interface ConfigColors {
-  dwgBaseColor: string;
-  dwgDarkColor: string;
-  dwgLightColor: string;
-  dwgAlarmColor: string;
-  dwgGreyColor: string;
-  dwgBackgroundColor: string;
+interface ConfigStrings {
+  lastPlayedString: string;
 }
