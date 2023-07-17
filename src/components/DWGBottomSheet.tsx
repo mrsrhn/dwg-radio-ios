@@ -1,14 +1,24 @@
-import BottomSheet from '@gorhom/bottom-sheet';
+import BottomSheet, {
+  BottomSheetView,
+  useBottomSheetDynamicSnapPoints,
+} from '@gorhom/bottom-sheet';
 import { observer } from 'mobx-react-lite';
 import React, { useCallback, useMemo, useRef } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import HistoryView from './HistoryView';
 import PlayerControls from './PlayerControls';
 import Title from './Title';
 
 const DWGBottomSheet = observer(() => {
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const snapPoints = useMemo(() => ['50%', '90%'], []);
+  const initialSnapPoints = useMemo(() => ['50%', 'CONTENT_HEIGHT'], []);
+
+  const {
+    animatedHandleHeight,
+    animatedSnapPoints,
+    animatedContentHeight,
+    handleContentLayout,
+  } = useBottomSheetDynamicSnapPoints(initialSnapPoints);
 
   const handleSheetChanges = useCallback((index: number) => {
     console.log('handleSheetChanges', index);
@@ -18,23 +28,24 @@ const DWGBottomSheet = observer(() => {
     <BottomSheet
       ref={bottomSheetRef}
       index={0}
-      snapPoints={snapPoints}
       onChange={handleSheetChanges}
       animateOnMount={false}
+      snapPoints={animatedSnapPoints}
+      handleHeight={animatedHandleHeight}
+      contentHeight={animatedContentHeight}
     >
-      <View style={styles.container}>
+      <BottomSheetView style={styles.container} onLayout={handleContentLayout}>
         <Title />
         <PlayerControls />
         <HistoryView />
-      </View>
+      </BottomSheetView>
     </BottomSheet>
   );
 });
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
-    height: '50%',
+    paddingHorizontal: 20,
     justifyContent: 'space-between',
   },
 });
