@@ -47,6 +47,13 @@ const PlayerControls = observer(() => {
 
   return (
     <View style={styles.container}>
+      <Pressable>
+        <Ionicons
+          name="timer-outline"
+          size={CHEVRON_SIZE}
+          color={Colors.dwgDarkColor}
+        />
+      </Pressable>
       <Pressable onPress={onChannelBackward}>
         <Ionicons
           name="chevron-back"
@@ -58,7 +65,6 @@ const PlayerControls = observer(() => {
         <MaterialIcons
           color={Colors.dwgDarkColor}
           style={{
-            paddingHorizontal: 20,
             height: PLAYBUTTON_SIZE, // TODO: necessary as workaround for this bug: https://github.com/gorhom/react-native-bottom-sheet/issues/1218
           }}
           size={PLAYBUTTON_SIZE}
@@ -72,14 +78,22 @@ const PlayerControls = observer(() => {
           color={Colors.dwgDarkColor}
         />
       </Pressable>
+      <Pressable>
+        <Ionicons
+          name="ellipsis-horizontal-circle-outline"
+          size={CHEVRON_SIZE}
+          color={Colors.dwgDarkColor}
+        />
+      </Pressable>
     </View>
   );
 });
 
 const styles = StyleSheet.create({
   container: {
+    paddingHorizontal: 20,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
     paddingVertical: 20,
   },
