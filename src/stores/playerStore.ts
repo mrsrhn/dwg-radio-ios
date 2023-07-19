@@ -1,11 +1,6 @@
-import { action, computed, makeObservable, observable } from 'mobx';
-import {
-  Audio,
-  AudioMode,
-  AVPlaybackStatusError,
-  AVPlaybackStatusSuccess,
-  InterruptionModeIOS,
-} from 'expo-av';
+import { action, makeObservable, observable } from 'mobx';
+
+import TrackPlayer, { Capability, State } from 'react-native-track-player';
 import { Config } from '../types/config';
 
 export type Channel = 'lyra' | 'radio' | 'pur';
@@ -15,18 +10,6 @@ class PlayerStore {
 
   isPlaying = false;
 
-  playerRadio: Audio.Sound | undefined = undefined;
-
-  metaRadio = '';
-
-  playerPur: Audio.Sound | undefined = undefined;
-
-  metaPur = '';
-
-  playerLyra: Audio.Sound | undefined = undefined;
-
-  metaLyra = '';
-
   selectedChannel: Channel = 'radio';
 
   config: Config;
@@ -35,15 +18,23 @@ class PlayerStore {
     makeObservable(this, {
       isPlaying: observable,
       selectedChannel: observable,
-      currentPlayerObject: computed,
-      metaLyra: observable,
-      metaRadio: observable,
-      metaPur: observable,
-      currentUri: computed,
     });
     this.config = config;
-    this.initAudioPlayer();
+    this.init();
   }
+
+  init = async () => {
+    await TrackPlayer.setupPlayer();
+    await TrackPlayer.updateOptions({
+      capabilities: [Capability.Play, Capability.Pause],
+    });
+    const channels = [
+      this.config.configBase.urlLyra,
+      this.config.configBase.urlRadio,
+      this.config.configBase.urlPur,
+    ].map((url) => ({ url }));
+    await TrackPlayer.add(channels);
+  };
 
   setIsPlaying = action((isPlaying: boolean) => {
     this.isPlaying = isPlaying;
@@ -57,123 +48,70 @@ class PlayerStore {
     this.selectedChannel = channel;
   });
 
-  setMetaRadio = action((meta: string) => {
-    this.metaRadio = meta;
-  });
-
-  setMetaLyra = action((meta: string) => {
-    this.metaLyra = meta;
-  });
-
-  setMetaPur = action((meta: string) => {
-    this.metaPur = meta;
-  });
-
   updateChannel = async (selectedChannel: Channel) => {
-    this.setSelectedChannel(selectedChannel);
-    if (!this.isPlaying) return;
-    await Promise.all(
-      [this.playerLyra, this.playerRadio, this.playerPur].map((playerObject) =>
-        playerObject?.setIsMutedAsync(true)
-      )
-    );
+    const currentTrack = await TrackPlayer.getCurrentTrack();
+    if (currentTrack === null) return;
+
     switch (selectedChannel) {
       case 'lyra':
-        this.playerLyra?.setIsMutedAsync(false);
-        break;
+        if (currentTrack === 0) {
+          break;
+        } else if (currentTrack === 1) {
+          TrackPlayer.skipToPrevious();
+          break;
+        } else {
+          await TrackPlayer.skipToPrevious();
+          TrackPlayer.skipToPrevious();
+          break;
+        }
       case 'radio':
-        this.playerRadio?.setIsMutedAsync(false);
-        break;
+        if (currentTrack === 0) {
+          TrackPlayer.skipToNext();
+          break;
+        } else if (currentTrack === 1) {
+          break;
+        } else {
+          TrackPlayer.skipToPrevious();
+          break;
+        }
       case 'pur':
-        this.playerPur?.setIsMutedAsync(false);
-        break;
+        if (currentTrack === 0) {
+          await TrackPlayer.skipToNext();
+          TrackPlayer.skipToNext();
+          break;
+        } else if (currentTrack === 1) {
+          TrackPlayer.skipToNext();
+          break;
+        } else {
+          break;
+        }
       default:
         break;
     }
+    this.setSelectedChannel(selectedChannel);
   };
 
-  togglePlayer = () => {
-    if (!this.currentPlayerObject) return;
-    if (this.isPlaying) {
-      this.currentPlayerObject.setIsMutedAsync(true);
-    } else {
-      this.currentPlayerObject.setIsMutedAsync(false);
-    }
-  };
-
-  initAudioPlayer = async () => {
-    const partialMode: Partial<AudioMode> = {
-      allowsRecordingIOS: false,
-      interruptionModeIOS: InterruptionModeIOS.MixWithOthers,
-      playsInSilentModeIOS: true,
-      staysActiveInBackground: true,
-    };
-    Audio.setAudioModeAsync(partialMode);
-
-    const { urlRadio, urlLyra, urlPur } = this.config.configBase;
-
-    // TODO: if one of the streams is offline, the method breaks here. We have to handle that.
-    const playbackObjects = await Promise.all(
-      [urlRadio, urlLyra, urlPur].map((url) =>
-        Audio.Sound.createAsync(
-          { uri: url },
-          { isMuted: true },
-          this.onPlaybackStatusUpdate
-        )
-      )
-    );
-
-    this.playerRadio = playbackObjects[0].sound;
-    this.playerLyra = playbackObjects[1].sound;
-    this.playerPur = playbackObjects[2].sound;
-
-    this.playerRadio.playAsync();
-    this.playerLyra.playAsync();
-    this.playerPur.playAsync();
-
-    this.playerRadio.setOnMetadataUpdate((m) =>
-      this.setMetaRadio(m.title ?? '')
-    );
-    this.playerLyra.setOnMetadataUpdate((m) => this.setMetaLyra(m.title ?? ''));
-    this.playerPur.setOnMetadataUpdate((m) => this.setMetaPur(m.title ?? ''));
-  };
-
-  get currentPlayerObject() {
-    switch (this.selectedChannel) {
-      case 'radio':
-        return this.playerRadio;
-      case 'lyra':
-        return this.playerLyra;
-      case 'pur':
-        return this.playerPur;
-      default:
-        return undefined;
-    }
-  }
-
-  get currentUri() {
-    switch (this.selectedChannel) {
-      case 'radio':
-        return this.config.configBase.urlRadio;
-      case 'lyra':
-        return this.config.configBase.urlLyra;
-      case 'pur':
-        return this.config.configBase.urlPur;
-      default:
-        return undefined;
-    }
-  }
-
-  private onPlaybackStatusUpdate = (
-    status: AVPlaybackStatusError | AVPlaybackStatusSuccess
-  ) => {
-    if ('uri' in status && status.uri !== this.currentUri) return;
-    this.setIsLoaded(status.isLoaded);
-    if ('isMuted' in status) {
-      this.setIsPlaying(!status.isMuted);
-    } else if (status.error) {
-      console.error(status.error);
+  togglePlayer = async () => {
+    const state = await TrackPlayer.getState();
+    if (state === State.Playing) {
+      TrackPlayer.pause();
       this.setIsPlaying(false);
+    } else {
+      await this.seekToLivePosition();
+      await TrackPlayer.play();
+      this.setIsPlaying(true);
+    }
+  };
+
+  seekToLivePosition = async () => {
+    // React Native Track Player cannot seek to the live position in a stream,
+    // so we switch channels for a moment
+    if (this.selectedChannel === 'pur') {
+      await TrackPlayer.skipToPrevious();
+      await TrackPlayer.skipToNext();
+    } else {
+      await TrackPlayer.skipToNext();
+      await TrackPlayer.skipToPrevious();
     }
   };
 }
