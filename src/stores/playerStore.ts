@@ -35,7 +35,6 @@ class PlayerStore {
   });
 
   handleMetadataReceived(metadata: unknown) {
-    console.log(metadata);
     this.setCurrentMetaData(metadata);
   }
 
