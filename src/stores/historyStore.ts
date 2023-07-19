@@ -27,6 +27,8 @@ class HistoryStore {
       historyLyra: observable,
       historyPur: observable,
       currentHistory: computed,
+      currentTitle: computed,
+      currentArtist: computed,
     });
     this.config = config;
     this.playerStore = playerStore;
@@ -96,6 +98,14 @@ class HistoryStore {
       default:
         return [];
     }
+  }
+
+  get currentTitle() {
+    return this.currentHistory[0]?.title ?? '';
+  }
+
+  get currentArtist() {
+    return this.currentHistory[0]?.artist ?? '';
   }
 
   static async getHistory(url: string) {

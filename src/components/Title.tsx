@@ -5,13 +5,13 @@ import Colors from '../Colors';
 import useStores from '../hooks/useStores';
 
 const Title = observer(() => {
-  const { metaDataStore } = useStores();
+  const { historyStore } = useStores();
   return (
     <View style={styles.container}>
       <Text lineBreakMode="middle" style={styles.title}>
-        {metaDataStore.currentTitle}
+        {historyStore.currentTitle}
       </Text>
-      <Text style={styles.subTitle}>{metaDataStore.currentInterpret}</Text>
+      <Text style={styles.subTitle}>{historyStore.currentArtist}</Text>
     </View>
   );
 });
