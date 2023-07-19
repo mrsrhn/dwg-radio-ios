@@ -5,9 +5,9 @@ import configStrings from '../config/configStrings.json';
 import HistoryStore from './historyStore';
 
 class RootStore {
-  playerStore: PlayerStore;
-
   historyStore: HistoryStore;
+
+  playerStore: PlayerStore;
 
   config: Config = { configBase, configStrings };
 

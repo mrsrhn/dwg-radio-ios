@@ -1,6 +1,10 @@
 import { action, makeObservable, observable } from 'mobx';
 
-import TrackPlayer, { Capability, State } from 'react-native-track-player';
+import TrackPlayer, {
+  Capability,
+  State,
+  Event,
+} from 'react-native-track-player';
 import { Config } from '../types/config';
 
 export type Channel = 'lyra' | 'radio' | 'pur';
@@ -14,20 +18,37 @@ class PlayerStore {
 
   config: Config;
 
+  currentMetaData: unknown = undefined;
+
   constructor(config: Config) {
     makeObservable(this, {
       isPlaying: observable,
       selectedChannel: observable,
+      currentMetaData: observable,
     });
     this.config = config;
     this.init();
   }
 
+  setCurrentMetaData = action((metaData: unknown) => {
+    this.currentMetaData = metaData;
+  });
+
+  handleMetadataReceived(metadata: unknown) {
+    console.log(metadata);
+    this.setCurrentMetaData(metadata);
+  }
+
   init = async () => {
     await TrackPlayer.setupPlayer();
+    TrackPlayer.addEventListener(Event.PlaybackMetadataReceived, (metadata) =>
+      this.handleMetadataReceived(metadata)
+    );
+
     await TrackPlayer.updateOptions({
       capabilities: [Capability.Play, Capability.Pause],
     });
+
     const channels = [
       this.config.configBase.urlLyra,
       this.config.configBase.urlRadio,

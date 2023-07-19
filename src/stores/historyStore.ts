@@ -35,16 +35,12 @@ class HistoryStore {
     this.init();
 
     reaction(
-      () => this.playerStore.metaRadio,
-      () => this.updateHistoryRadio()
-    );
-    reaction(
-      () => this.playerStore.metaLyra,
-      () => this.updateHistoryLyra()
-    );
-    reaction(
-      () => this.playerStore.metaPur,
-      () => this.updateHistoryPur()
+      () =>
+        JSON.stringify([
+          this.playerStore.currentMetaData,
+          this.playerStore.selectedChannel,
+        ]),
+      () => this.updateCurrentHistory()
     );
   }
 
@@ -85,6 +81,22 @@ class HistoryStore {
       this.config.configBase.urlHistoryPur
     );
     this.setHistoryPur(data);
+  };
+
+  updateCurrentHistory = async () => {
+    switch (this.playerStore.selectedChannel) {
+      case 'lyra':
+        this.updateHistoryLyra();
+        break;
+      case 'pur':
+        this.updateHistoryPur();
+        break;
+      case 'radio':
+        this.updateHistoryRadio();
+        break;
+      default:
+        break;
+    }
   };
 
   get currentHistory() {
