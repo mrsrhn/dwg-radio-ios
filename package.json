@@ -12,6 +12,7 @@
   "dependencies": {
     "@expo/vector-icons": "^13.0.0",
     "@gorhom/bottom-sheet": "^4.4.7",
+    "@react-native-menu/menu": "^0.8.0",
     "expo": "~48.0.18",
     "expo-dev-client": "~2.2.1",
     "expo-image": "~1.0.1",

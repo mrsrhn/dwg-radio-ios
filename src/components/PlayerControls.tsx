@@ -4,6 +4,7 @@ import { View, StyleSheet, Pressable } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import useStores from '../hooks/useStores';
 import Colors from '../Colors';
+import SleepTimerButton from './SleepTimerButton';
 
 const PLAYBUTTON_SIZE = 70;
 const CHEVRON_SIZE = 30;
@@ -47,55 +48,74 @@ const PlayerControls = observer(() => {
 
   return (
     <View style={styles.container}>
-      <Pressable>
-        <Ionicons
-          name="timer-outline"
-          size={CHEVRON_SIZE}
-          color={Colors.dwgDarkColor}
-        />
-      </Pressable>
-      <Pressable onPress={onChannelBackward}>
-        <Ionicons
-          name="chevron-back"
-          size={CHEVRON_SIZE}
-          color={Colors.dwgDarkColor}
-        />
-      </Pressable>
-      <Pressable onPress={playerStore.togglePlayer}>
-        <MaterialIcons
-          color={Colors.dwgDarkColor}
-          style={{
-            height: PLAYBUTTON_SIZE, // TODO: necessary as workaround for this bug: https://github.com/gorhom/react-native-bottom-sheet/issues/1218
-          }}
-          size={PLAYBUTTON_SIZE}
-          name={playButtonIconName}
-        />
-      </Pressable>
-      <Pressable onPress={onChannelForward}>
-        <Ionicons
-          name="chevron-forward"
-          size={CHEVRON_SIZE}
-          color={Colors.dwgDarkColor}
-        />
-      </Pressable>
-      <Pressable>
-        <Ionicons
-          name="ellipsis-horizontal-circle-outline"
-          size={CHEVRON_SIZE}
-          color={Colors.dwgDarkColor}
-        />
-      </Pressable>
+      <View
+        style={{
+          flexBasis: '30%',
+          flexDirection: 'row',
+          justifyContent: 'center',
+        }}
+      >
+        <SleepTimerButton />
+      </View>
+      <View
+        style={{
+          flexGrow: 1,
+          flexDirection: 'row',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <Pressable onPress={onChannelBackward}>
+          <Ionicons
+            name="chevron-back"
+            size={CHEVRON_SIZE}
+            color={Colors.dwgDarkColor}
+          />
+        </Pressable>
+        <Pressable onPress={playerStore.togglePlayer}>
+          <MaterialIcons
+            color={Colors.dwgDarkColor}
+            style={{
+              height: PLAYBUTTON_SIZE, // TODO: necessary as workaround for this bug: https://github.com/gorhom/react-native-bottom-sheet/issues/1218
+            }}
+            size={PLAYBUTTON_SIZE}
+            name={playButtonIconName}
+          />
+        </Pressable>
+        <Pressable onPress={onChannelForward}>
+          <Ionicons
+            name="chevron-forward"
+            size={CHEVRON_SIZE}
+            color={Colors.dwgDarkColor}
+          />
+        </Pressable>
+      </View>
+      <View
+        style={{
+          flexBasis: '30%',
+          flexDirection: 'row',
+          justifyContent: 'center',
+        }}
+      >
+        <Pressable>
+          <Ionicons
+            name="ellipsis-horizontal-circle-outline"
+            size={CHEVRON_SIZE}
+            color={Colors.dwgDarkColor}
+          />
+        </Pressable>
+      </View>
     </View>
   );
 });
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 20,
+    height: 200,
   },
 });
 
