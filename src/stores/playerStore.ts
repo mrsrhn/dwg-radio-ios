@@ -114,13 +114,21 @@ class PlayerStore {
   togglePlayer = async () => {
     const state = await TrackPlayer.getState();
     if (state === State.Playing) {
-      TrackPlayer.pause();
-      this.setIsPlaying(false);
+      this.stop();
     } else {
-      await this.seekToLivePosition();
-      await TrackPlayer.play();
-      this.setIsPlaying(true);
+      this.play();
     }
+  };
+
+  stop = () => {
+    TrackPlayer.pause();
+    this.setIsPlaying(false);
+  };
+
+  play = async () => {
+    await this.seekToLivePosition();
+    await TrackPlayer.play();
+    this.setIsPlaying(true);
   };
 
   seekToLivePosition = async () => {

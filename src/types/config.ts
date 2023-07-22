@@ -14,4 +14,7 @@ interface ConfigBase {
 
 interface ConfigStrings {
   lastPlayedString: string;
+  sleepTimer: string;
+  minutes: string;
+  off: string;
 }
