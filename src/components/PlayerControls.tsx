@@ -48,13 +48,7 @@ const PlayerControls = observer(() => {
 
   return (
     <View style={styles.container}>
-      <View
-        style={{
-          flexBasis: '30%',
-          flexDirection: 'row',
-          justifyContent: 'center',
-        }}
-      >
+      <View style={styles.sideButtonsContainer}>
         <SleepTimerButton />
       </View>
       <View
@@ -90,13 +84,7 @@ const PlayerControls = observer(() => {
           />
         </Pressable>
       </View>
-      <View
-        style={{
-          flexBasis: '30%',
-          flexDirection: 'row',
-          justifyContent: 'center',
-        }}
-      >
+      <View style={styles.sideButtonsContainer}>
         <Pressable>
           <Ionicons
             name="ellipsis-horizontal-circle-outline"
@@ -115,7 +103,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingVertical: 20,
-    height: 200,
+  },
+  sideButtonsContainer: {
+    flexBasis: '30%',
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
 });
 
