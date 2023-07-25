@@ -1,51 +1,62 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
 import { View, StyleSheet, Pressable } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import useStores from '../hooks/useStores';
 import Colors from '../Colors';
 import SleepTimerButton from './SleepTimerButton';
-import InfoMenuButton from './InfoMenuButton';
 
 const PLAYBUTTON_SIZE = 70;
 
-const PlayerControls = observer(() => {
-  const { playerStore } = useStores();
+interface PlayerControlsProps {
+  onInfoMenuButton: () => void;
+}
 
-  const playButtonIconName = playerStore.isPlaying
-    ? 'pause-circle-outline'
-    : 'play-circle-outline';
+const PlayerControls: React.FC<PlayerControlsProps> = observer(
+  ({ onInfoMenuButton }) => {
+    const { playerStore } = useStores();
 
-  return (
-    <View style={styles.container}>
-      <View style={styles.sideButtonsContainer}>
-        <SleepTimerButton />
+    const playButtonIconName = playerStore.isPlaying
+      ? 'pause-circle-outline'
+      : 'play-circle-outline';
+
+    return (
+      <View style={styles.container}>
+        <View style={styles.sideButtonsContainer}>
+          <SleepTimerButton />
+        </View>
+        <View
+          style={{
+            flexGrow: 1,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Pressable onPress={playerStore.togglePlayer}>
+            <MaterialIcons
+              color={Colors.dwgDarkColor}
+              style={{
+                height: PLAYBUTTON_SIZE, // TODO: necessary as workaround for this bug: https://github.com/gorhom/react-native-bottom-sheet/issues/1218
+              }}
+              size={PLAYBUTTON_SIZE}
+              name={playButtonIconName}
+            />
+          </Pressable>
+        </View>
+        <View style={styles.sideButtonsContainer}>
+          <Pressable onPress={onInfoMenuButton}>
+            <Ionicons
+              name="ellipsis-horizontal-circle-outline"
+              size={30}
+              color={Colors.dwgDarkColor}
+            />
+          </Pressable>
+        </View>
       </View>
-      <View
-        style={{
-          flexGrow: 1,
-          flexDirection: 'row',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Pressable onPress={playerStore.togglePlayer}>
-          <MaterialIcons
-            color={Colors.dwgDarkColor}
-            style={{
-              height: PLAYBUTTON_SIZE, // TODO: necessary as workaround for this bug: https://github.com/gorhom/react-native-bottom-sheet/issues/1218
-            }}
-            size={PLAYBUTTON_SIZE}
-            name={playButtonIconName}
-          />
-        </Pressable>
-      </View>
-      <View style={styles.sideButtonsContainer}>
-        <InfoMenuButton />
-      </View>
-    </View>
-  );
-});
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   container: {
