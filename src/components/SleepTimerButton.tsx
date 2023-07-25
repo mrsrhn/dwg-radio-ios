@@ -1,6 +1,10 @@
 import React, { useMemo, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import { MenuAction, MenuView } from '@react-native-menu/menu';
+import {
+  MenuAction,
+  MenuView,
+  NativeActionEvent,
+} from '@react-native-menu/menu';
 import { observer } from 'mobx-react-lite';
 import { Pressable, Text, StyleSheet, View } from 'react-native';
 import Colors from '../Colors';
@@ -35,17 +39,19 @@ const SleepTimerButton = observer(() => {
     [configStrings.minutes, configStrings.off, currentSleepTimerOption]
   );
 
+  const onPressAction = (e: NativeActionEvent) => {
+    if (e.nativeEvent.event === '0') {
+      sleepTimerStore.stopSleepTimer();
+    } else {
+      sleepTimerStore.activateSleepTimer(parseInt(e.nativeEvent.event, 10));
+    }
+    setCurrentSleepTimerOption(e.nativeEvent.event);
+  };
+
   return (
     <MenuView
       title={configStrings.sleepTimer}
-      onPressAction={({ nativeEvent }) => {
-        if (nativeEvent.event === '0') {
-          sleepTimerStore.stopSleepTimer();
-        } else {
-          sleepTimerStore.activateSleepTimer(parseInt(nativeEvent.event, 10));
-        }
-        setCurrentSleepTimerOption(nativeEvent.event);
-      }}
+      onPressAction={onPressAction}
       actions={actions}
     >
       <Pressable

@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
   container: {
     borderRadius: 20,
     backgroundColor: Colors.dwgBackgroundColor,
-    marginBottom: 20,
   },
   title: {
     paddingVertical: 10,
