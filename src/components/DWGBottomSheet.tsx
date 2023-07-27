@@ -1,10 +1,10 @@
 import BottomSheet, {
-  BottomSheetView,
+  BottomSheetScrollView,
   useBottomSheetDynamicSnapPoints,
 } from '@gorhom/bottom-sheet';
 import { observer } from 'mobx-react-lite';
 import React, { useMemo, useRef } from 'react';
-import { StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet } from 'react-native';
 import HistoryView from './HistoryView';
 import PlayerControls from './PlayerControls';
 import Title from './Title';
@@ -34,14 +34,17 @@ const DWGBottomSheet: React.FC<DWGBottomSheetProps> = observer(
         handleHeight={animatedHandleHeight}
         contentHeight={animatedContentHeight}
       >
-        <BottomSheetView
-          style={styles.container}
+        <BottomSheetScrollView
           onLayout={handleContentLayout}
+          contentContainerStyle={styles.container}
+          style={{
+            maxHeight: Dimensions.get('window').height,
+          }}
         >
           <Title />
           <PlayerControls onInfoMenuButton={onInfoMenuButton} />
           <HistoryView />
-        </BottomSheetView>
+        </BottomSheetScrollView>
       </BottomSheet>
     );
   }
