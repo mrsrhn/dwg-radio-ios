@@ -1,6 +1,6 @@
 import BottomSheet, {
   BottomSheetBackdrop,
-  BottomSheetScrollView,
+  BottomSheetView,
   useBottomSheetDynamicSnapPoints,
 } from '@gorhom/bottom-sheet';
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
@@ -47,7 +47,7 @@ const InfoMenuBottomSheet = observer(
         backdropComponent={BottomSheetBackdrop}
         onChange={handleSheetChanges}
       >
-        <BottomSheetScrollView
+        <BottomSheetView
           style={styles.container}
           onLayout={handleContentLayout}
         >
@@ -91,7 +91,7 @@ const InfoMenuBottomSheet = observer(
               />
             }
           />
-        </BottomSheetScrollView>
+        </BottomSheetView>
       </BottomSheet>
     );
   })
