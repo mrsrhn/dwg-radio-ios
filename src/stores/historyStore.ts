@@ -1,4 +1,5 @@
 import { makeObservable, observable, action, computed, reaction } from 'mobx';
+import TrackPlayer from 'react-native-track-player';
 
 import { Config } from '../types/config';
 import PlayerStore from './playerStore';
@@ -42,6 +43,11 @@ class HistoryStore {
         ]),
       () => this.updateCurrentHistory()
     );
+
+    reaction(
+      () => this.currentTitle,
+      () => {}
+    );
   }
 
   init() {
@@ -67,6 +73,11 @@ class HistoryStore {
       this.config.configBase.urlHistoryRadio
     );
     this.setHistoryRadio(data);
+
+    TrackPlayer.updateMetadataForTrack(1, {
+      title: data[0].title,
+      artist: data[0].artist,
+    });
   };
 
   updateHistoryLyra = async () => {
@@ -74,6 +85,10 @@ class HistoryStore {
       this.config.configBase.urlHistoryLyra
     );
     this.setHistoryLyra(data);
+    TrackPlayer.updateMetadataForTrack(0, {
+      title: data[0].title,
+      artist: data[0].artist,
+    });
   };
 
   updateHistoryPur = async () => {
@@ -81,6 +96,10 @@ class HistoryStore {
       this.config.configBase.urlHistoryPur
     );
     this.setHistoryPur(data);
+    TrackPlayer.updateMetadataForTrack(2, {
+      title: data[0].title,
+      artist: data[0].artist,
+    });
   };
 
   updateCurrentHistory = async () => {
