@@ -7,18 +7,29 @@ interface InfoMenuButtonProps {
   title: string;
   onPress: () => void;
   iconName: string;
+  component?: React.ReactNode;
 }
-function InfoMenuButton({ title, onPress, iconName }: InfoMenuButtonProps) {
+function InfoMenuButton({
+  title,
+  onPress,
+  iconName,
+  component,
+}: InfoMenuButtonProps) {
   return (
     <Pressable onPress={onPress} style={styles.container}>
-      <Ionicons name={iconName} color={Colors.dwgDarkColor} size={20} />
-      <Text style={styles.title}>{title}</Text>
+      {component || (
+        <>
+          <Ionicons name={iconName} color={Colors.dwgDarkColor} size={20} />
+          <Text style={styles.title}>{title}</Text>
+        </>
+      )}
     </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: 'white',
     borderRadius: 10,
     minHeight: 40,
