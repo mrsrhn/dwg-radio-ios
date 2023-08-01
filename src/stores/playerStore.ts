@@ -38,11 +38,9 @@ class PlayerStore {
     this.setCurrentMetaData(metadata);
   }
 
-  init = async () => {
+  private init = async () => {
     await TrackPlayer.setupPlayer();
-    TrackPlayer.addEventListener(Event.PlaybackMetadataReceived, (metadata) =>
-      this.handleMetadataReceived(metadata)
-    );
+    this.registerEvents();
 
     await TrackPlayer.updateOptions({
       capabilities: [Capability.Play, Capability.Pause],
@@ -54,6 +52,19 @@ class PlayerStore {
       this.config.configBase.urlPur,
     ].map((url) => ({ url }));
     await TrackPlayer.add(channels);
+  };
+
+  private registerEvents = () => {
+    TrackPlayer.addEventListener(Event.PlaybackMetadataReceived, (metadata) =>
+      this.handleMetadataReceived(metadata)
+    );
+    TrackPlayer.addEventListener(Event.RemotePlay, async () => {
+      this.seekToLivePosition();
+      this.setIsPlaying(true);
+    });
+    TrackPlayer.addEventListener(Event.RemotePause, () =>
+      this.setIsPlaying(false)
+    );
   };
 
   setIsPlaying = action((isPlaying: boolean) => {
