@@ -13,20 +13,9 @@ import useConfig from '../hooks/useConfig';
 import useStores from '../hooks/useStores';
 import InfoMenuButton from './InfoMenuButton';
 
-interface InfoContent {
-  title: string;
-  infoString: string;
-}
-
-interface InfoButton {
-  iconName: string;
-  title: string;
-  url: string;
-}
-
 const InfoMenuBottomSheet = observer(
   React.forwardRef((_, ref) => {
-    const { playerStore } = useStores();
+    const { infoMenuStore } = useStores();
 
     const initialSnapPoints = useMemo(() => ['1%', 'CONTENT_HEIGHT'], []);
     const { configBase, configStrings } = useConfig();
@@ -48,81 +37,6 @@ const InfoMenuBottomSheet = observer(
       handleContentLayout,
     } = useBottomSheetDynamicSnapPoints(initialSnapPoints);
 
-    const infoButtons: InfoButton[] = useMemo(() => {
-      switch (playerStore.selectedChannel) {
-        case 'radio':
-          return [
-            {
-              iconName: 'globe-outline',
-              title: configStrings.preview,
-              url: configBase.urlPreview,
-            },
-            {
-              iconName: 'archive-outline',
-              title: configStrings.archive,
-              url: configBase.urlArchive,
-            },
-            {
-              iconName: 'logo-apple-appstore',
-              title: configStrings.load,
-              url: configBase.urlDWGLoad,
-            },
-          ];
-        case 'pur':
-          return [
-            {
-              iconName: 'globe-outline',
-              title: configStrings.programInfo,
-              url: configBase.urlPurInfo,
-            },
-          ];
-        case 'lyra':
-          return [];
-        default:
-          return [];
-      }
-    }, [
-      configBase.urlArchive,
-      configBase.urlDWGLoad,
-      configBase.urlPreview,
-      configBase.urlPurInfo,
-      configStrings.archive,
-      configStrings.load,
-      configStrings.preview,
-      configStrings.programInfo,
-      playerStore.selectedChannel,
-    ]);
-
-    const currentInfoString: InfoContent = useMemo(() => {
-      switch (playerStore.selectedChannel) {
-        case 'radio':
-          return {
-            title: configStrings.radio,
-            infoString: configStrings.infoStringRadio,
-          };
-        case 'pur':
-          return {
-            title: configStrings.pur,
-            infoString: configStrings.infoStringPur,
-          };
-        case 'lyra':
-          return {
-            title: configStrings.lyra,
-            infoString: configStrings.infoStringLyra,
-          };
-        default:
-          return { title: '', infoString: '' };
-      }
-    }, [
-      configStrings.infoStringLyra,
-      configStrings.infoStringPur,
-      configStrings.infoStringRadio,
-      configStrings.lyra,
-      configStrings.pur,
-      configStrings.radio,
-      playerStore.selectedChannel,
-    ]);
-
     return (
       <BottomSheet
         ref={ref as Ref<BottomSheetMethods>}
@@ -140,13 +54,18 @@ const InfoMenuBottomSheet = observer(
           style={styles.container}
           onLayout={handleContentLayout}
         >
-          <Text style={styles.sectionTitle}>{currentInfoString.title}</Text>
-          <Text style={styles.infoString}>{currentInfoString.infoString}</Text>
+          <Text style={styles.sectionTitle}>
+            {infoMenuStore.channelInfo.title}
+          </Text>
+          <Text style={styles.infoString}>
+            {infoMenuStore.channelInfo.infoString}
+          </Text>
           <Text style={styles.sectionTitle}>
             {configStrings.additionalLinks}
           </Text>
-          {infoButtons.map((button) => (
+          {infoMenuStore.channelInfoButtons.map((button) => (
             <InfoMenuButton
+              key={`button_${button.title}`}
               iconName={button.iconName}
               title={button.title}
               onPress={() => {

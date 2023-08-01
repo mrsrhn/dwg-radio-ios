@@ -43,11 +43,6 @@ class HistoryStore {
         ]),
       () => this.updateCurrentHistory()
     );
-
-    reaction(
-      () => this.currentTitle,
-      () => {}
-    );
   }
 
   init() {
