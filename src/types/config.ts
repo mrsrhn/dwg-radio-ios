@@ -13,6 +13,10 @@ interface ConfigBase {
   urlPreview: string;
   urlArchive: string;
   urlPaypal: string;
+  urlAboutUs: string;
+  urlDWGLoad: string;
+  urlPurInfo: string;
+  urlBankTranksfer: string;
   contactMail: string;
 }
 
@@ -27,4 +31,14 @@ interface ConfigStrings {
   contact: string;
   additionalLinks: string;
   donation: string;
+  infoStringRadio: string;
+  infoStringLyra: string;
+  infoStringPur: string;
+  radio: string;
+  pur: string;
+  lyra: string;
+  load: string;
+  programInfo: string;
+  aboutUs: string;
+  bankTransfer: string;
 }
