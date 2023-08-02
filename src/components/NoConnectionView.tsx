@@ -3,14 +3,17 @@ import { observer } from 'mobx-react-lite';
 import { SafeAreaView, Text, StyleSheet, View } from 'react-native';
 import useStores from '../hooks/useStores';
 import Colors from '../Colors';
+import useConfig from '../hooks/useConfig';
 
 const NoConnectionView = observer(() => {
   const { playerStore } = useStores();
+  const { configStrings } = useConfig();
+
   if (playerStore.isConnected) return null;
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.text}>keine internetverbindung</Text>
+        <Text style={styles.text}>{configStrings.noConnectionMessage}</Text>
       </View>
     </SafeAreaView>
   );
