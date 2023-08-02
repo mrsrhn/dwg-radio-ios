@@ -41,4 +41,5 @@ interface ConfigStrings {
   programInfo: string;
   aboutUs: string;
   bankTransfer: string;
+  noConnectionMessage: string;
 }
