@@ -1,0 +1,16 @@
+{
+  "urlRadio": "https://server23644.streamplus.de",
+  "urlPur": "https://server25531.streamplus.de",
+  "urlLyra": "https://server34599.streamplus.de",
+  "urlHistoryRadio": "https://login.streamplus.de/app.php/de/api/stream_server/public/23644/title_history/10",
+  "urlHistoryPur": "https://login.streamplus.de/app.php/de/api/stream_server/public/25531/title_history/10",
+  "urlHistoryLyra": "https://login.streamplus.de/app.php/de/api/stream_server/public/34599/title_history/10",
+  "urlPreview": "https://radio.dwgradio.net/de/",
+  "urlArchive": "https://radio.dwgradio.net/de/programm-pdf-archiv/",
+  "contactMail": "info@dwgradio.net",
+  "urlPaypal": "https://www.paypal.com/donate/?hosted_button_id=CBDECENM9CM8Q",
+  "urlDWGLoad": "https://apps.apple.com/us/app/dwg-load/id1470039790",
+  "urlPurInfo": "https://radio.dwgradio.net/de/dwg-pur/",
+  "urlAboutUs": "https://radio.dwgradio.net/de/ueber-uns/",
+  "urlBankTranksfer": "https://radio.dwgradio.net/de/spenden/"
+}

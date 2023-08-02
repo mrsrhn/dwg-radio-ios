@@ -1,0 +1,23 @@
+{
+  "noConnectionMessage": "Keine Internetverbindung",
+  "lastPlayedString": "Abspielhistorie",
+  "sleepTimer": "Einschlaf-Timer",
+  "minutes": "Minuten",
+  "off": "Aus",
+  "preview": "Zur Programmvorschau",
+  "archive": "Zum Programm-PDF-Archiv",
+  "contact": "Kontakt",
+  "additionalLinks": "Weiterführende Links",
+  "mailButton": "Schreiben Sie uns",
+  "donation": "Spenden",
+  "infoStringRadio": "DWG Radio ist eine missiona­rische Initiative, die die christliche Botschaft über das Internet verbreitet. Das Ziel ist Menschen zu helfen, Gott dem Schöpfer zu begegnen, damit sie Vergebung erlangen, und Christen durch fundierte biblische Lehre in ihrem Glauben zu festigen.",
+  "infoStringLyra": "DWG Lyra bietet Ihnen christlich orientierte Musik. Ausgewählte Titel begleiten Sie durch den Tag und geben Ihnen wertvolle Impulse für Ihr Glaubensleben. Lieder sind ein fester Bestandteil der christlichen Zusammenkünfte. Sie dienen dem gemeinsamen Gotteslob. Und sie greifen auf individuelle und poetische Weise Wahrheiten der Bibel auf. Lassen Sie diese Wahrheiten erklingen und genießen Sie Musik auf DWG Lyra.",
+  "infoStringPur": "Unser Kanal bringt das gelesene Wort Gottes in bester Qualität zu Ihnen – wann immer Sie möchten. Hören Sie die Bücher des Neuen und Alten Testaments und entdecken Sie dabei die kristallklare Botschaft Gottes. Seine ganze Güte und Treue begegnet uns darin. Und es ist zeitgleich Gottes gebietendes Wort. Schöpfen Sie Inspiration auf DWG Pur und erleben Sie die Kraft der biblischen Texte.",
+  "radio": "DWG Radio",
+  "pur": "DWG Pur",
+  "lyra": "DWG Lyra",
+  "load": "DWGload - Predigtdatenbank",
+  "programInfo": "Programminfos",
+  "aboutUs": "Über uns",
+  "bankTransfer": "Überweisung"
+}
