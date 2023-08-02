@@ -4,12 +4,16 @@ import TrackPlayer, {
   Capability,
   State,
   Event,
+  PlaybackStateEvent,
 } from 'react-native-track-player';
+import * as Network from 'expo-network';
 import { Config } from '../types/config';
 
 export type Channel = 'lyra' | 'radio' | 'pur';
 
 class PlayerStore {
+  isConnected = true;
+
   isLoaded = false;
 
   isPlaying = false;
@@ -25,20 +29,14 @@ class PlayerStore {
       isPlaying: observable,
       selectedChannel: observable,
       currentMetaData: observable,
+      isConnected: observable,
     });
     this.config = config;
     this.init();
   }
 
-  setCurrentMetaData = action((metaData: unknown) => {
-    this.currentMetaData = metaData;
-  });
-
-  handleMetadataReceived(metadata: unknown) {
-    this.setCurrentMetaData(metadata);
-  }
-
   private init = async () => {
+    this.updateConnectionState();
     await TrackPlayer.setupPlayer();
     this.registerEvents();
 
@@ -54,18 +52,13 @@ class PlayerStore {
     await TrackPlayer.add(channels);
   };
 
-  private registerEvents = () => {
-    TrackPlayer.addEventListener(Event.PlaybackMetadataReceived, (metadata) =>
-      this.handleMetadataReceived(metadata)
-    );
-    TrackPlayer.addEventListener(Event.RemotePlay, async () => {
-      this.seekToLivePosition();
-      this.setIsPlaying(true);
-    });
-    TrackPlayer.addEventListener(Event.RemotePause, () =>
-      this.setIsPlaying(false)
-    );
-  };
+  setIsConnected = action((isConnected: boolean) => {
+    this.isConnected = isConnected;
+  });
+
+  setCurrentMetaData = action((metaData: unknown) => {
+    this.currentMetaData = metaData;
+  });
 
   setIsPlaying = action((isPlaying: boolean) => {
     this.isPlaying = isPlaying;
@@ -133,13 +126,11 @@ class PlayerStore {
 
   stop = () => {
     TrackPlayer.pause();
-    this.setIsPlaying(false);
   };
 
   play = async () => {
     await this.seekToLivePosition();
     await TrackPlayer.play();
-    this.setIsPlaying(true);
   };
 
   seekToLivePosition = async () => {
@@ -152,6 +143,57 @@ class PlayerStore {
       await TrackPlayer.skipToNext();
       await TrackPlayer.skipToPrevious();
     }
+  };
+
+  private registerEvents = () => {
+    TrackPlayer.addEventListener(Event.PlaybackMetadataReceived, (metadata) =>
+      this.setCurrentMetaData(metadata)
+    );
+    TrackPlayer.addEventListener(Event.RemotePlay, async () => {
+      this.seekToLivePosition();
+    });
+    TrackPlayer.addEventListener(
+      Event.PlaybackState,
+      this.onPlaybackStateChange
+    );
+  };
+
+  onPlaybackStateChange = async (event: PlaybackStateEvent) => {
+    this.updateConnectionState();
+
+    switch (event.state) {
+      case State.Playing:
+        this.setIsPlaying(true);
+        break;
+      case State.Paused:
+        this.setIsPlaying(false);
+        break;
+      default:
+        break;
+    }
+  };
+
+  updateConnectionState = async () => {
+    const networkState = await Network.getNetworkStateAsync();
+    this.setIsConnected(networkState.isInternetReachable ?? false);
+
+    if (!networkState.isInternetReachable) {
+      this.startConnectionCheckInterval();
+    }
+  };
+
+  startConnectionCheckInterval = () => {
+    async function checkConnection(): Promise<boolean> {
+      const networkState = await Network.getNetworkStateAsync();
+      return networkState.isInternetReachable ?? false;
+    }
+
+    const intervalId = setInterval(async () => {
+      if (await checkConnection()) {
+        clearInterval(intervalId);
+        this.setIsConnected(true);
+      }
+    }, 3000);
   };
 }
 

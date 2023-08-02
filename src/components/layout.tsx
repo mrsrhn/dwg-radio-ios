@@ -7,6 +7,7 @@ import Colors from '../Colors';
 import DWGBottomSheet from './DWGBottomSheet';
 import DWGPager from './DWGPager';
 import InfoMenuBottomSheet from './InfoMenuBottomSheet';
+import NoConnectionView from './NoConnectionView';
 
 function Layout() {
   const bottomSheetRef = useRef<BottomSheet>(null);
@@ -19,6 +20,7 @@ function Layout() {
   return (
     <>
       <StatusBar style="dark" />
+      <NoConnectionView />
       <View style={{ flex: 1 }}>
         <DWGPager />
       </View>
