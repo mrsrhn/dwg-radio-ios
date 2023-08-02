@@ -40,6 +40,7 @@ class HistoryStore {
         JSON.stringify([
           this.playerStore.currentMetaData,
           this.playerStore.selectedChannel,
+          this.playerStore.isConnected,
         ]),
       () => this.updateCurrentHistory()
     );

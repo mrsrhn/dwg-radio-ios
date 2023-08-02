@@ -31,6 +31,7 @@
     "object-curly-newline": "off",
     "function-paren-newline": "off",
     "react/require-default-props": "off",
-    "react/jsx-wrap-multilines": "off"
+    "react/jsx-wrap-multilines": "off",
+    "class-methods-use-this": "off"
   }
 }
