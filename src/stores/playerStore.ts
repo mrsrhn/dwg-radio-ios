@@ -133,7 +133,7 @@ class PlayerStore {
     await TrackPlayer.play();
   };
 
-  seekToLivePosition = async () => {
+  private seekToLivePosition = async () => {
     // React Native Track Player cannot seek to the live position in a stream,
     // so we switch channels for a moment
     if (this.selectedChannel === 'pur') {
@@ -158,7 +158,7 @@ class PlayerStore {
     );
   };
 
-  onPlaybackStateChange = async (event: PlaybackStateEvent) => {
+  private onPlaybackStateChange = async (event: PlaybackStateEvent) => {
     this.updateConnectionState();
 
     switch (event.state) {
@@ -173,7 +173,7 @@ class PlayerStore {
     }
   };
 
-  updateConnectionState = async () => {
+  private updateConnectionState = async () => {
     const networkState = await Network.getNetworkStateAsync();
     this.setIsConnected(networkState.isInternetReachable ?? false);
 
@@ -182,7 +182,7 @@ class PlayerStore {
     }
   };
 
-  startConnectionCheckInterval = () => {
+  private startConnectionCheckInterval = () => {
     async function checkConnection(): Promise<boolean> {
       const networkState = await Network.getNetworkStateAsync();
       return networkState.isInternetReachable ?? false;
