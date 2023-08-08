@@ -5,6 +5,9 @@ import TrackPlayer, {
   State,
   Event,
   PlaybackStateEvent,
+  IOSCategory,
+  IOSCategoryMode,
+  IOSCategoryOptions,
 } from 'react-native-track-player';
 import * as Network from 'expo-network';
 import { Config } from '../types/config';
@@ -37,7 +40,17 @@ class PlayerStore {
 
   private init = async () => {
     this.updateConnectionState();
-    await TrackPlayer.setupPlayer();
+    await TrackPlayer.setupPlayer({
+      iosCategory: IOSCategory.Playback,
+      iosCategoryMode: IOSCategoryMode.SpokenAudio,
+      iosCategoryOptions: [
+        IOSCategoryOptions.AllowAirPlay,
+        IOSCategoryOptions.AllowBluetooth,
+        IOSCategoryOptions.AllowBluetoothA2DP,
+        IOSCategoryOptions.InterruptSpokenAudioAndMixWithOthers,
+      ],
+    });
+
     this.registerEvents();
 
     await TrackPlayer.updateOptions({
@@ -156,6 +169,10 @@ class PlayerStore {
       Event.PlaybackState,
       this.onPlaybackStateChange
     );
+    TrackPlayer.addEventListener(Event.RemoteDuck, (e) => {
+      if (e.paused) return;
+      this.play();
+    });
   };
 
   private onPlaybackStateChange = async (event: PlaybackStateEvent) => {
