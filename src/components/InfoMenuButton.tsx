@@ -6,7 +6,7 @@ import Colors from '../Colors';
 interface InfoMenuButtonProps {
   title: string;
   onPress: () => void;
-  iconName: string;
+  iconName?: string;
   component?: React.ReactNode;
 }
 function InfoMenuButton({
@@ -16,10 +16,18 @@ function InfoMenuButton({
   component,
 }: InfoMenuButtonProps) {
   return (
-    <Pressable onPress={onPress} style={styles.container}>
+    <Pressable
+      onPress={onPress}
+      style={styles.container}
+      accessible
+      accessibilityLabel={title}
+      accessibilityRole="button"
+    >
       {component || (
         <>
-          <Ionicons name={iconName} color={Colors.dwgDarkColor} size={20} />
+          {iconName && (
+            <Ionicons name={iconName} color={Colors.dwgDarkColor} size={20} />
+          )}
           <Text style={styles.title}>{title}</Text>
         </>
       )}

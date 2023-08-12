@@ -53,6 +53,13 @@ const SleepTimerButton = observer(() => {
       title={configStrings.sleepTimer}
       onPressAction={onPressAction}
       actions={actions}
+      accessible
+      accessibilityLabel={`${configStrings.sleepTimer}: ${
+        currentSleepTimerOption === '0'
+          ? configStrings.off
+          : `${currentSleepTimerOption} ${configStrings.minutes}`
+      }`}
+      accessibilityRole="button"
     >
       <Pressable
         style={

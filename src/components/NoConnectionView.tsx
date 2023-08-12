@@ -13,7 +13,14 @@ const NoConnectionView = observer(() => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.text}>{configStrings.noConnectionMessage}</Text>
+        <Text
+          style={styles.text}
+          accessible
+          accessibilityLabel={configStrings.noConnectionMessage}
+          accessibilityRole="text"
+        >
+          {configStrings.noConnectionMessage}
+        </Text>
       </View>
     </SafeAreaView>
   );
@@ -38,4 +45,5 @@ const styles = StyleSheet.create({
     color: 'white',
   },
 });
+
 export default NoConnectionView;

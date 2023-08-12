@@ -97,8 +97,7 @@ const InfoMenuBottomSheet = observer(
             }}
           />
           <InfoMenuButton
-            iconName="mail-outline"
-            title={configStrings.mailButton}
+            title={configStrings.paypal}
             onPress={() => {
               Linking.openURL(configBase.urlPaypal);
             }}
