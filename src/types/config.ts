@@ -38,8 +38,18 @@ interface ConfigStrings {
   pur: string;
   lyra: string;
   load: string;
+  paypal: string;
   programInfo: string;
   aboutUs: string;
   bankTransfer: string;
   noConnectionMessage: string;
+  accessCurrentTitle: string;
+  accessFrom: string;
+  accessPlayedAt: string;
+  accessClock: string;
+  accessOpenInfoMenu: string;
+  accessContinue: string;
+  accessPause: string;
+  accessSwitchChannelForward: string;
+  accessSwitchChannelBackward: string;
 }

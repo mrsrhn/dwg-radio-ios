@@ -17,7 +17,17 @@
   "pur": "DWG Pur",
   "lyra": "DWG Lyra",
   "load": "DWGload - Predigtdatenbank",
+  "paypal": "PayPal",
   "programInfo": "Programminfos",
   "aboutUs": "Über uns",
-  "bankTransfer": "Überweisung"
+  "bankTransfer": "Überweisung",
+  "accessCurrentTitle": "Aktueller Titel",
+  "accessFrom": "von",
+  "accessPlayedAt": "gespielt um",
+  "accessClock": "Uhr",
+  "accessOpenInfoMenu": "Info-Menü öffnen",
+  "accessContinue": "Wiedergabe fortsetzen",
+  "accessPause": "Wiedergabe pausieren",
+  "accessSwitchChannelForward": "Kanal wechseln vorwärts",
+  "accessSwitchChannelBackward": "Kanal wechseln zurück"
 }

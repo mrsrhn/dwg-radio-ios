@@ -1,6 +1,12 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { observer } from 'mobx-react-lite';
-import { Animated, Dimensions, StyleSheet, View } from 'react-native';
+import {
+  Animated,
+  Dimensions,
+  Pressable,
+  StyleSheet,
+  View,
+} from 'react-native';
 import PagerView, {
   PagerViewOnPageScrollEventData,
 } from 'react-native-pager-view';
@@ -9,6 +15,7 @@ import { ScalingDot } from 'react-native-animated-pagination-dots';
 import { Channel } from '../stores/playerStore';
 import useStores from '../hooks/useStores';
 import Colors from '../Colors';
+import useConfig from '../hooks/useConfig';
 
 interface ChannelData {
   key: Channel;
@@ -23,6 +30,7 @@ const CHANNELS: ChannelData[] = [
 
 const DWGPager = observer(() => {
   const { playerStore } = useStores();
+  const { configStrings } = useConfig();
   const pagerRef = useRef<PagerView>(null);
 
   const onPageSelect = useCallback(
@@ -43,6 +51,44 @@ const DWGPager = observer(() => {
     },
     [playerStore]
   );
+
+  const onGoBack = () => {
+    switch (playerStore.selectedChannel) {
+      case 'lyra':
+        pagerRef.current?.setPage(2);
+        onPageSelect(2);
+        break;
+      case 'radio':
+        pagerRef.current?.setPage(0);
+        onPageSelect(0);
+        break;
+      case 'pur':
+        pagerRef.current?.setPage(1);
+        onPageSelect(1);
+        break;
+      default:
+        break;
+    }
+  };
+
+  const onGoForward = () => {
+    switch (playerStore.selectedChannel) {
+      case 'lyra':
+        pagerRef.current?.setPage(1);
+        onPageSelect(1);
+        break;
+      case 'radio':
+        pagerRef.current?.setPage(2);
+        onPageSelect(2);
+        break;
+      case 'pur':
+        pagerRef.current?.setPage(0);
+        onPageSelect(0);
+        break;
+      default:
+        break;
+    }
+  };
 
   useEffect(() => {
     switch (playerStore.selectedChannel) {
@@ -96,6 +142,18 @@ const DWGPager = observer(() => {
 
   return (
     <View style={styles.container}>
+      <Pressable
+        onPress={onGoBack}
+        style={{
+          width: 100,
+          height: '100%',
+          zIndex: 999,
+          position: 'absolute',
+        }}
+        accessible
+        accessibilityLabel={configStrings.accessSwitchChannelBackward}
+        accessibilityRole="button"
+      />
       <PagerView
         ref={pagerRef}
         style={styles.viewPager}
@@ -120,6 +178,19 @@ const DWGPager = observer(() => {
         dotStyle={styles.paginationDot}
         activeDotColor={Colors.dwgDarkColor}
         inActiveDotColor={Colors.dwgGreyColor}
+      />
+      <Pressable
+        onPress={onGoForward}
+        style={{
+          width: 100,
+          height: '100%',
+          zIndex: 999,
+          position: 'absolute',
+          right: 0,
+        }}
+        accessible
+        accessibilityLabel={configStrings.accessSwitchChannelForward}
+        accessibilityRole="button"
       />
     </View>
   );

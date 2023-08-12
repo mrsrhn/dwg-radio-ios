@@ -5,6 +5,7 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import useStores from '../hooks/useStores';
 import Colors from '../Colors';
 import SleepTimerButton from './SleepTimerButton';
+import useConfig from '../hooks/useConfig';
 
 const PLAYBUTTON_SIZE = 70;
 
@@ -15,6 +16,7 @@ interface PlayerControlsProps {
 const PlayerControls: React.FC<PlayerControlsProps> = observer(
   ({ onInfoMenuButton }) => {
     const { playerStore } = useStores();
+    const { configStrings } = useConfig();
 
     const playButtonIconName = playerStore.isPlaying
       ? 'pause-circle-outline'
@@ -33,11 +35,20 @@ const PlayerControls: React.FC<PlayerControlsProps> = observer(
             alignItems: 'center',
           }}
         >
-          <Pressable onPress={playerStore.togglePlayer}>
+          <Pressable
+            onPress={playerStore.togglePlayer}
+            accessible
+            accessibilityLabel={
+              playerStore.isPlaying
+                ? configStrings.accessPause
+                : configStrings.accessContinue
+            }
+            accessibilityRole="button"
+          >
             <MaterialIcons
               color={Colors.dwgDarkColor}
               style={{
-                height: PLAYBUTTON_SIZE, // TODO: necessary as workaround for this bug: https://github.com/gorhom/react-native-bottom-sheet/issues/1218
+                height: PLAYBUTTON_SIZE,
               }}
               size={PLAYBUTTON_SIZE}
               name={playButtonIconName}
@@ -45,7 +56,12 @@ const PlayerControls: React.FC<PlayerControlsProps> = observer(
           </Pressable>
         </View>
         <View style={styles.sideButtonsContainer}>
-          <Pressable onPress={onInfoMenuButton}>
+          <Pressable
+            onPress={onInfoMenuButton}
+            accessible
+            accessibilityLabel={configStrings.accessOpenInfoMenu}
+            accessibilityRole="button"
+          >
             <Ionicons
               name="ellipsis-horizontal-circle-outline"
               size={30}

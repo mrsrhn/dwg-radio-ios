@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Colors from '../Colors';
+import useConfig from '../hooks/useConfig';
 
 interface HistoryItemProps {
   title: string;
@@ -10,8 +11,13 @@ interface HistoryItemProps {
 
 function HistoryViewItem(props: HistoryItemProps) {
   const { title, artist, time } = props;
+  const { configStrings } = useConfig();
   return (
-    <View style={styles.container}>
+    <View
+      style={styles.container}
+      accessible
+      accessibilityLabel={`${title}, ${configStrings.accessFrom} ${artist}, ${configStrings.accessPlayedAt} ${time} ${configStrings.accessClock}`}
+    >
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{title}</Text>
         <Text style={styles.artist}>{artist}</Text>
