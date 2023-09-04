@@ -4,6 +4,7 @@ import {
   Animated,
   Dimensions,
   Pressable,
+  SafeAreaView,
   StyleSheet,
   View,
 } from 'react-native';
@@ -144,12 +145,7 @@ const DWGPager = observer(() => {
     <View style={styles.container}>
       <Pressable
         onPress={onGoBack}
-        style={{
-          width: 100,
-          height: '100%',
-          zIndex: 999,
-          position: 'absolute',
-        }}
+        style={styles.goBackButton}
         accessible
         accessibilityLabel={configStrings.accessSwitchChannelBackward}
         accessibilityRole="button"
@@ -162,13 +158,13 @@ const DWGPager = observer(() => {
         onPageSelected={(e) => onPageSelect(e.nativeEvent.position)}
       >
         {CHANNELS.map((channel) => (
-          <View style={styles.page} key={channel.key}>
+          <SafeAreaView style={styles.page} key={channel.key}>
             <Image
               style={styles.channelImage}
               source={channel.imgSource}
               contentFit="cover"
             />
-          </View>
+          </SafeAreaView>
         ))}
       </PagerView>
       <ScalingDot
@@ -181,13 +177,7 @@ const DWGPager = observer(() => {
       />
       <Pressable
         onPress={onGoForward}
-        style={{
-          width: 100,
-          height: '100%',
-          zIndex: 999,
-          position: 'absolute',
-          right: 0,
-        }}
+        style={styles.goForwardButton}
         accessible
         accessibilityLabel={configStrings.accessSwitchChannelForward}
         accessibilityRole="button"
@@ -209,8 +199,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   channelImage: {
-    marginVertical: 90,
-    marginHorizontal: 20,
+    marginBottom: '20%',
+    marginTop: '10%',
+    marginHorizontal: '5%',
     flex: 1,
     borderRadius: 20,
   },
@@ -220,6 +211,21 @@ const styles = StyleSheet.create({
     backgroundColor: '#347af0',
     borderRadius: 5,
     marginHorizontal: 7,
+  },
+  goBackButton: {
+    width: 50,
+    height: '10%',
+    zIndex: 999,
+    position: 'absolute',
+    bottom: 0,
+  },
+  goForwardButton: {
+    width: 50,
+    height: '10%',
+    zIndex: 999,
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
   },
 });
 
