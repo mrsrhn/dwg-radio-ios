@@ -63,52 +63,67 @@ const InfoMenuBottomSheet = observer(
           <Text style={styles.sectionTitle}>
             {configStrings.additionalLinks}
           </Text>
-          {infoMenuStore.channelInfoButtons.map((button) => (
+          {infoMenuStore.channelInfoButtons.map((button) => {
+            if (!button.url) return null;
+            return (
+              <InfoMenuButton
+                key={`button_${button.title}`}
+                iconName={button.iconName}
+                title={button.title}
+                onPress={() => {
+                  Linking.openURL(button.url);
+                }}
+              />
+            );
+          })}
+          {configBase.urlAboutUs.length ? (
             <InfoMenuButton
-              key={`button_${button.title}`}
-              iconName={button.iconName}
-              title={button.title}
+              iconName="information-circle-outline"
+              title={configStrings.aboutUs}
               onPress={() => {
-                Linking.openURL(button.url);
+                Linking.openURL(configBase.urlAboutUs);
               }}
             />
-          ))}
-          <InfoMenuButton
-            iconName="information-circle-outline"
-            title={configStrings.aboutUs}
-            onPress={() => {
-              Linking.openURL(configBase.urlAboutUs);
-            }}
-          />
-          <Text style={styles.sectionTitle}>{configStrings.contact}</Text>
-          <InfoMenuButton
-            iconName="mail-outline"
-            title={configStrings.mailButton}
-            onPress={() => {
-              Linking.openURL(`mailto:${configBase.contactMail}`);
-            }}
-          />
-          <Text style={styles.sectionTitle}>{configStrings.donation}</Text>
-          <InfoMenuButton
-            iconName="card-outline"
-            title={configStrings.bankTransfer}
-            onPress={() => {
-              Linking.openURL(configBase.urlBankTranksfer);
-            }}
-          />
-          <InfoMenuButton
-            title={configStrings.paypal}
-            onPress={() => {
-              Linking.openURL(configBase.urlPaypal);
-            }}
-            component={
-              <Image
-                style={{ flex: 1, height: 20 }}
-                source={require('../../assets/paypalLogo.png')}
-                contentFit="scale-down"
+          ) : null}
+          {configBase.contactMail.length ? (
+            <>
+              <Text style={styles.sectionTitle}>{configStrings.contact}</Text>
+              <InfoMenuButton
+                iconName="mail-outline"
+                title={configStrings.mailButton}
+                onPress={() => {
+                  Linking.openURL(`mailto:${configBase.contactMail}`);
+                }}
               />
-            }
-          />
+            </>
+          ) : null}
+          {configBase.urlBankTranksfer.length || configBase.urlPaypal.length ? (
+            <Text style={styles.sectionTitle}>{configStrings.donation}</Text>
+          ) : null}
+          {configBase.urlBankTranksfer.length ? (
+            <InfoMenuButton
+              iconName="card-outline"
+              title={configStrings.bankTransfer}
+              onPress={() => {
+                Linking.openURL(configBase.urlBankTranksfer);
+              }}
+            />
+          ) : null}
+          {configBase.urlPaypal.length ? (
+            <InfoMenuButton
+              title={configStrings.paypal}
+              onPress={() => {
+                Linking.openURL(configBase.urlPaypal);
+              }}
+              component={
+                <Image
+                  style={{ flex: 1, height: 20 }}
+                  source={require('../../assets/paypalLogo.png')}
+                  contentFit="scale-down"
+                />
+              }
+            />
+          ) : null}
         </BottomSheetView>
       </BottomSheet>
     );
