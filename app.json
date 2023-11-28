@@ -11,17 +11,13 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": false,
       "infoPlist": {
-        "UIBackgroundModes": [
-          "audio"
-        ]
+        "UIBackgroundModes": ["audio"]
       },
-      "bundleIdentifier": "mariusrhein.DWGRadio"
+      "bundleIdentifier": "mariusrhein.DWGRadioCZ"
     },
     "android": {
       "adaptiveIcon": {
