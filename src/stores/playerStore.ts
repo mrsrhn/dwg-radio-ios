@@ -8,6 +8,7 @@ import TrackPlayer, {
   IOSCategory,
   IOSCategoryMode,
   IOSCategoryOptions,
+  PitchAlgorithm,
 } from 'react-native-track-player';
 import * as Network from 'expo-network';
 import { Config } from '../types/config';
@@ -61,7 +62,8 @@ class PlayerStore {
       this.config.configBase.urlLyra,
       this.config.configBase.urlRadio,
       this.config.configBase.urlPur,
-    ].map((url) => ({ url }));
+      // Setting Pitchalgorithm is a workaround for this bug: https://github.com/doublesymmetry/react-native-track-player/issues/2124#issuecomment-1729441871
+    ].map((url) => ({ url, pitchAlgorithm: PitchAlgorithm.Voice }));
     await TrackPlayer.add(channels);
   };
 
@@ -177,7 +179,7 @@ class PlayerStore {
 
   private onPlaybackStateChange = async (event: PlaybackStateEvent) => {
     this.updateConnectionState();
-
+    console.log(event.state);
     switch (event.state) {
       case State.Playing:
         this.setIsPlaying(true);
