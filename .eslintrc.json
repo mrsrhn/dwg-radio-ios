@@ -32,6 +32,7 @@
     "function-paren-newline": "off",
     "react/require-default-props": "off",
     "react/jsx-wrap-multilines": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "react/no-array-index-key": "off"
   }
 }
