@@ -21,7 +21,7 @@
           "audio"
         ]
       },
-      "bundleIdentifier": "mariusrhein.DWGRadio"
+      "bundleIdentifier": "mariusrhein.DWGRadioRU"
     },
     "android": {
       "package": "com.yourcompany.yourappname",
