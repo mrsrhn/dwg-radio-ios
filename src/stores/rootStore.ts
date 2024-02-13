@@ -16,8 +16,8 @@ class RootStore {
   playerStore: PlayerStore;
 
   config: Config = {
-    configBase: configBase.de,
-    configStrings: configStrings.de,
+    configBase: configBase.ru,
+    configStrings: configStrings.ru,
   };
 
   constructor() {
