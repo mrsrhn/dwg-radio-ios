@@ -8,9 +8,10 @@
   "urlPreview": "https://radio.dwgradio.net/de/",
   "urlArchive": "https://radio.dwgradio.net/de/programm-pdf-archiv/",
   "contactMail": "info@dwgradio.net",
+  "additionalContactLinks": [],
   "urlPaypal": "https://www.paypal.com/donate/?hosted_button_id=CBDECENM9CM8Q",
   "urlDWGLoad": "https://apps.apple.com/us/app/dwg-load/id1470039790",
   "urlPurInfo": "https://radio.dwgradio.net/de/dwg-pur/",
   "urlAboutUs": "https://radio.dwgradio.net/de/ueber-uns/",
-  "urlBankTranksfer": "https://radio.dwgradio.net/de/spenden/"
+  "urlBankTransfer": "https://radio.dwgradio.net/de/spenden/"
 }

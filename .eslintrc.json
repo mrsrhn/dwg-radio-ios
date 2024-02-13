@@ -33,6 +33,7 @@
     "react/require-default-props": "off",
     "react/jsx-wrap-multilines": "off",
     "class-methods-use-this": "off",
-    "react/no-array-index-key": "off"
+    "react/no-array-index-key": "off",
+    "@typescript-eslint/indent": "off"
   }
 }

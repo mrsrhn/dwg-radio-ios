@@ -76,11 +76,15 @@ class InfoMenuStore {
         ];
       case 'pur':
         return [
-          {
-            iconName: 'globe-outline',
-            title: configStrings.programInfo,
-            url: configBase.urlPurInfo,
-          },
+          ...(configBase.urlPurInfo.length
+            ? [
+                {
+                  iconName: 'globe-outline',
+                  title: configStrings.programInfo,
+                  url: configBase.urlPurInfo,
+                },
+              ]
+            : []),
         ];
       case 'lyra':
         return [];

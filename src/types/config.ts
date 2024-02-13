@@ -16,8 +16,9 @@ interface ConfigBase {
   urlAboutUs: string;
   urlDWGLoad: string;
   urlPurInfo: string;
-  urlBankTranksfer: string;
+  urlBankTransfer: string;
   contactMail: string;
+  additionalContactLinks: { name: string; url: string; icon: string }[];
 }
 
 interface ConfigStrings {

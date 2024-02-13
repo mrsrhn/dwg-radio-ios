@@ -95,17 +95,28 @@ const InfoMenuBottomSheet = observer(
                   Linking.openURL(`mailto:${configBase.contactMail}`);
                 }}
               />
+              {configBase.additionalContactLinks.map((link, index) => (
+                <InfoMenuButton
+                  key={`link_${index}`}
+                  iconName={link.icon}
+                  title={link.name}
+                  onPress={() => {
+                    Linking.openURL(link.url);
+                  }}
+                />
+              ))}
             </>
           ) : null}
-          {configBase.urlBankTranksfer.length || configBase.urlPaypal.length ? (
+
+          {configBase.urlBankTransfer.length || configBase.urlPaypal.length ? (
             <Text style={styles.sectionTitle}>{configStrings.donation}</Text>
           ) : null}
-          {configBase.urlBankTranksfer.length ? (
+          {configBase.urlBankTransfer.length ? (
             <InfoMenuButton
               iconName="card-outline"
               title={configStrings.bankTransfer}
               onPress={() => {
-                Linking.openURL(configBase.urlBankTranksfer);
+                Linking.openURL(configBase.urlBankTransfer);
               }}
             />
           ) : null}
