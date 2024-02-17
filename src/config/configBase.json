@@ -1,17 +1,70 @@
 {
-  "urlRadio": "https://server23644.streamplus.de",
-  "urlPur": "https://server25531.streamplus.de",
-  "urlLyra": "https://server34599.streamplus.de",
-  "urlHistoryRadio": "https://login.streamplus.de/app.php/de/api/stream_server/public/23644/title_history/10",
-  "urlHistoryPur": "https://login.streamplus.de/app.php/de/api/stream_server/public/25531/title_history/10",
-  "urlHistoryLyra": "https://login.streamplus.de/app.php/de/api/stream_server/public/34599/title_history/10",
-  "urlPreview": "https://radio.dwgradio.net/de/",
-  "urlArchive": "https://radio.dwgradio.net/de/programm-pdf-archiv/",
-  "contactMail": "info@dwgradio.net",
-  "additionalContactLinks": [],
-  "urlPaypal": "https://www.paypal.com/donate/?hosted_button_id=CBDECENM9CM8Q",
-  "urlDWGLoad": "https://apps.apple.com/us/app/dwg-load/id1470039790",
-  "urlPurInfo": "https://radio.dwgradio.net/de/dwg-pur/",
-  "urlAboutUs": "https://radio.dwgradio.net/de/ueber-uns/",
-  "urlBankTransfer": "https://radio.dwgradio.net/de/spenden/"
+  "de": {
+    "urlRadio": "https://server23644.streamplus.de",
+    "urlPur": "https://server25531.streamplus.de",
+    "urlLyra": "https://server34599.streamplus.de",
+    "urlHistoryRadio": "https://login.streamplus.de/app.php/de/api/stream_server/public/23644/title_history/10",
+    "urlHistoryPur": "https://login.streamplus.de/app.php/de/api/stream_server/public/25531/title_history/10",
+    "urlHistoryLyra": "https://login.streamplus.de/app.php/de/api/stream_server/public/34599/title_history/10",
+    "urlPreview": "https://radio.dwgradio.net/de/",
+    "urlArchive": "https://radio.dwgradio.net/de/programm-pdf-archiv/",
+    "contactMail": "info@dwgradio.net",
+    "additionalContactLinks": [
+      {
+        "name": "Telegram-Kanal",
+        "url": "https://t.me/dwgradiode",
+        "icon": "chatbox-outline"
+      }
+    ],
+    "urlPaypal": "https://www.paypal.com/donate/?hosted_button_id=CBDECENM9CM8Q",
+    "urlDWGLoad": "https://apps.apple.com/us/app/dwg-load/id1470039790",
+    "urlPurInfo": "https://radio.dwgradio.net/de/dwg-pur/",
+    "urlAboutUs": "https://radio.dwgradio.net/de/ueber-uns/",
+    "urlBankTransfer": "https://radio.dwgradio.net/de/spenden/"
+  },
+  "cz": {
+    "urlRadio": "https://server25530.streamplus.de",
+    "urlPur": "https://server35237.streamplus.de",
+    "urlLyra": "https://server35236.streamplus.de",
+    "urlHistoryRadio": "https://login.streamplus.de/app.php/de/api/stream_server/public/25530/title_history/10",
+    "urlHistoryPur": "https://login.streamplus.de/app.php/de/api/stream_server/public/35237/title_history/10",
+    "urlHistoryLyra": "https://login.streamplus.de/app.php/de/api/stream_server/public/35236/title_history/10",
+    "urlPreview": "https://radio.dwgradio.net/cz/",
+    "urlArchive": "",
+    "contactMail": "info.cz@dwgradio.net",
+    "additionalContactLinks": [],
+    "urlPaypal": "",
+    "urlDWGLoad": "https://apps.apple.com/de/app/dwg-load-cz/id1620746172",
+    "urlPurInfo": "https://radio.dwgradio.net/cz/dwg-pur/",
+    "urlAboutUs": "https://radio.dwgradio.net/cz/o-nas/",
+    "urlBankTranksfer": "https://radio.dwgradio.net/cz/dary/"
+  },
+  "ru": {
+    "urlRadio": "https://server32349.streamplus.de",
+    "urlPur": "https://server36510.streamplus.de",
+    "urlLyra": "https://server36511.streamplus.de",
+    "urlHistoryRadio": "https://login.streamplus.de/app.php/de/api/stream_server/public/32349/title_history/10",
+    "urlHistoryPur": "https://login.streamplus.de/app.php/de/api/stream_server/public/36510/title_history/10",
+    "urlHistoryLyra": "https://login.streamplus.de/app.php/de/api/stream_server/public/36511/title_history/10",
+    "urlPreview": "https://radio.dwgradio.net/ru/",
+    "urlArchive": "",
+    "contactMail": "info.ru@dwgradio.net",
+    "additionalContactLinks": [
+      {
+        "name": "Телеграмм",
+        "url": "https://t.me/DWGradio_ru",
+        "icon": "chatbox-outline"
+      },
+      {
+        "name": "Телеграмм-канал",
+        "url": "https://t.me/DwgRadioRu",
+        "icon": "chatbox-outline"
+      }
+    ],
+    "urlPaypal": "https://www.paypal.com/paypalme/DWGru",
+    "urlDWGLoad": "https://apps.apple.com/de/app/dwg-load-ru/id1630783108",
+    "urlPurInfo": "",
+    "urlAboutUs": "https://radio.dwgradio.net/ru/o-nas/",
+    "urlBankTransfer": "https://radio.dwgradio.net/ru/pozhertvovat/"
+  }
 }

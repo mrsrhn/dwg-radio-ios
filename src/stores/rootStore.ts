@@ -15,7 +15,10 @@ class RootStore {
 
   playerStore: PlayerStore;
 
-  config: Config = { configBase, configStrings };
+  config: Config = {
+    configBase: configBase.de,
+    configStrings: configStrings.de,
+  };
 
   constructor() {
     this.playerStore = new PlayerStore(this.config);
