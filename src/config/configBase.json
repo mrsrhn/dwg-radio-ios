@@ -14,6 +14,16 @@
         "name": "Telegram-Kanal",
         "url": "https://t.me/dwgradiode",
         "icon": "chatbox-outline"
+      },
+      {
+        "name": "Telegram-Chat",
+        "url": "https://t.me/dwgradio_de_chat",
+        "icon": "chatbox-outline"
+      },
+      {
+        "name": "WhatsApp-Chat",
+        "url": "https://wa.me/4917640435016",
+        "icon": "logo-whatsapp"
       }
     ],
     "urlPaypal": "https://www.paypal.com/donate/?hosted_button_id=CBDECENM9CM8Q",
