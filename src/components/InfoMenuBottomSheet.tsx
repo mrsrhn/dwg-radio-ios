@@ -1,13 +1,13 @@
 import BottomSheet, {
   BottomSheetBackdrop,
-  BottomSheetView,
+  BottomSheetScrollView,
   useBottomSheetDynamicSnapPoints,
 } from '@gorhom/bottom-sheet';
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import { Image } from 'expo-image';
 import { observer } from 'mobx-react-lite';
 import React, { Ref, useCallback, useMemo } from 'react';
-import { StyleSheet, Linking, Text } from 'react-native';
+import { StyleSheet, Linking, Text, Dimensions } from 'react-native';
 import Colors from '../Colors';
 import useConfig from '../hooks/useConfig';
 import useStores from '../hooks/useStores';
@@ -50,9 +50,12 @@ const InfoMenuBottomSheet = observer(
         backdropComponent={BottomSheetBackdrop}
         onChange={handleSheetChanges}
       >
-        <BottomSheetView
-          style={styles.container}
+        <BottomSheetScrollView
           onLayout={handleContentLayout}
+          contentContainerStyle={styles.container}
+          style={{
+            maxHeight: Dimensions.get('window').height,
+          }}
         >
           <Text style={styles.sectionTitle}>
             {infoMenuStore.channelInfo.title}
@@ -135,7 +138,7 @@ const InfoMenuBottomSheet = observer(
               }
             />
           ) : null}
-        </BottomSheetView>
+        </BottomSheetScrollView>
       </BottomSheet>
     );
   })
@@ -143,6 +146,7 @@ const InfoMenuBottomSheet = observer(
 
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 10,
     paddingHorizontal: 20,
     backgroundColor: Colors.dwgBackgroundColor,
     gap: 10,
