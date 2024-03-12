@@ -1,4 +1,6 @@
 import { makeObservable, observable, action, reaction } from 'mobx';
+import { Platform } from 'react-native';
+import Timer from 'react-native-background-timer-android';
 
 import { Config } from '../types/config';
 import PlayerStore from './playerStore';
@@ -37,14 +39,28 @@ class SleepTimerStore {
     this.sleepTimerProgress = value;
   });
 
+  setDwgInterval = (callback: () => void, ms: number) => {
+    if (Platform.OS === 'android') {
+      return Timer.setInterval(callback, ms);
+    }
+    return setInterval(callback, ms);
+  };
+
+  clearDwgInterval = (interval: NodeJS.Timeout | number) => {
+    if (Platform.OS === 'android' && typeof interval === 'number') {
+      return Timer.clearInterval(interval);
+    }
+    return clearInterval(interval);
+  };
+
   activateSleepTimer = (durationInMinutes: number) => {
     if (this.sleepTimerInterval) {
-      clearInterval(this.sleepTimerInterval as NodeJS.Timeout);
+      this.clearDwgInterval(this.sleepTimerInterval as NodeJS.Timeout);
       this.setSleepTimerProgress(undefined);
     }
     this.setSleepTimerProgress(durationInMinutes * 60);
 
-    this.sleepTimerInterval = setInterval(this.timerCallback, 1000);
+    this.sleepTimerInterval = this.setDwgInterval(this.timerCallback, 1000);
     if (!this.playerStore.isPlaying) {
       this.pauseSleepTimer();
     }
@@ -52,7 +68,9 @@ class SleepTimerStore {
 
   timerCallback = () => {
     if (this.sleepTimerProgress === 0 || !this.sleepTimerProgress) {
-      clearInterval(this.sleepTimerInterval);
+      if (this.sleepTimerInterval) {
+        this.clearDwgInterval(this.sleepTimerInterval);
+      }
       this.playerStore.stop();
       this.setSleepTimerProgress(undefined);
     } else {
@@ -62,12 +80,12 @@ class SleepTimerStore {
 
   pauseSleepTimer = () => {
     if (this.sleepTimerInterval) {
-      clearInterval(this.sleepTimerInterval as NodeJS.Timeout);
+      this.clearDwgInterval(this.sleepTimerInterval as NodeJS.Timeout);
     }
   };
 
   continueSleepTimer = () => {
-    this.sleepTimerInterval = setInterval(this.timerCallback, 1000);
+    this.sleepTimerInterval = this.setDwgInterval(this.timerCallback, 1000);
   };
 
   stopSleepTimer = () => {
