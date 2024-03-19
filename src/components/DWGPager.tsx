@@ -199,10 +199,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   channelImage: {
-    marginBottom: '20%',
-    marginTop: '10%',
+    width: '90%',
+    height: '70%',
     marginHorizontal: '5%',
-    flex: 1,
     borderRadius: 20,
   },
   paginationDot: {
