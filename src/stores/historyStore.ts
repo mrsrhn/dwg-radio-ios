@@ -1,5 +1,6 @@
 import { makeObservable, observable, action, computed, reaction } from 'mobx';
 import TrackPlayer from 'react-native-track-player';
+import { AppState } from 'react-native';
 
 import { Config } from '../types/config';
 import PlayerStore from './playerStore';
@@ -44,6 +45,12 @@ class HistoryStore {
         ]),
       () => this.updateCurrentHistory()
     );
+
+    AppState.addEventListener('change', (state) => {
+      if (state === 'active') {
+        this.updateCurrentHistory();
+      }
+    });
   }
 
   init() {
