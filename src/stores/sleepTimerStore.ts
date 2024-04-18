@@ -5,6 +5,8 @@ import Timer from 'react-native-background-timer-android';
 import { Config } from '../types/config';
 import PlayerStore from './playerStore';
 
+const SLEEP_TIMER_INTERVAL = 1000;
+
 class SleepTimerStore {
   config: Config;
 
@@ -53,26 +55,33 @@ class SleepTimerStore {
     return clearInterval(interval);
   };
 
-  activateSleepTimer = (durationInMinutes: number) => {
+  activateSleepTimer = (
+    durationInMinutes: number,
+    callbackAfterFinish: () => void
+  ) => {
     if (this.sleepTimerInterval) {
       this.clearDwgInterval(this.sleepTimerInterval as NodeJS.Timeout);
       this.setSleepTimerProgress(undefined);
     }
     this.setSleepTimerProgress(durationInMinutes * 60);
 
-    this.sleepTimerInterval = this.setDwgInterval(this.timerCallback, 1000);
+    this.sleepTimerInterval = this.setDwgInterval(
+      () => this.timerCallback(callbackAfterFinish),
+      SLEEP_TIMER_INTERVAL
+    );
     if (!this.playerStore.isPlaying) {
       this.pauseSleepTimer();
     }
   };
 
-  timerCallback = () => {
+  timerCallback = (callbackAfterFinish: () => void) => {
     if (this.sleepTimerProgress === 0 || !this.sleepTimerProgress) {
       if (this.sleepTimerInterval) {
         this.clearDwgInterval(this.sleepTimerInterval);
       }
       this.playerStore.stop();
       this.setSleepTimerProgress(undefined);
+      callbackAfterFinish();
     } else {
       this.setSleepTimerProgress(this.sleepTimerProgress - 1);
     }
