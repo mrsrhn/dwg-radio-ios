@@ -43,7 +43,10 @@ const SleepTimerButton = observer(() => {
     if (e.nativeEvent.event === '0') {
       sleepTimerStore.stopSleepTimer();
     } else {
-      sleepTimerStore.activateSleepTimer(parseInt(e.nativeEvent.event, 10));
+      sleepTimerStore.activateSleepTimer(
+        parseInt(e.nativeEvent.event, 10),
+        () => setCurrentSleepTimerOption('0')
+      );
     }
     setCurrentSleepTimerOption(e.nativeEvent.event);
   };
