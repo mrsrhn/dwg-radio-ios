@@ -6,15 +6,66 @@
     "urlHistoryRadio": "https://login.streamplus.de/app.php/de/api/stream_server/public/23644/title_history/10",
     "urlHistoryPur": "https://login.streamplus.de/app.php/de/api/stream_server/public/25531/title_history/10",
     "urlHistoryLyra": "https://login.streamplus.de/app.php/de/api/stream_server/public/34599/title_history/10",
-    "urlPreview": "https://radio.dwgradio.net/de/",
-    "urlArchive": "https://radio.dwgradio.net/de/programm-pdf-archiv/",
     "contactMail": "info@dwgradio.net",
+    "additionalInfosLinks": {
+      "radio": [
+        {
+          "name": "Zur Programmvorschau",
+          "url": "https://radio.dwgradio.net/de/",
+          "icon": "globe-outline"
+        },
+        {
+          "name": "Zum Programm-PDF-Archiv",
+          "url": "https://radio.dwgradio.net/de/programm-pdf-archiv/",
+          "icon": "archive-outline"
+        },
+        {
+          "name": "DWGload - Predigtdatenbank",
+          "url": "https://apps.apple.com/us/app/dwg-load/id1470039790",
+          "icon": "logo-apple-appstore"
+        },
+        {
+          "name": "Über uns",
+          "url": "https://radio.dwgradio.net/de/ueber-uns/",
+          "icon": "information-circle-outline"
+        },
+        {
+          "name": "Telegram-Kanal",
+          "url": "https://t.me/dwgradiode",
+          "icon": "chatbox-outline"
+        }
+      ],
+      "pur": [
+        {
+          "name": "Programminfos",
+          "url": "https://radio.dwgradio.net/de/dwg-pur/",
+          "icon": "globe-outline"
+        },
+        {
+          "name": "Über uns",
+          "url": "https://radio.dwgradio.net/de/ueber-uns/",
+          "icon": "information-circle-outline"
+        },
+        {
+          "name": "Telegram-Kanal",
+          "url": "https://t.me/dwgradiode",
+          "icon": "chatbox-outline"
+        }
+      ],
+      "lyra": [
+        {
+          "name": "Über uns",
+          "url": "https://radio.dwgradio.net/de/ueber-uns/",
+          "icon": "information-circle-outline"
+        },
+        {
+          "name": "Telegram-Kanal",
+          "url": "https://t.me/dwgradiode",
+          "icon": "chatbox-outline"
+        }
+      ]
+    },
     "additionalContactLinks": [
-      {
-        "name": "Telegram-Kanal",
-        "url": "https://t.me/dwgradiode",
-        "icon": "chatbox-outline"
-      },
       {
         "name": "Telegram-Chat",
         "url": "https://t.me/dwgradio_de_chat",
@@ -27,9 +78,6 @@
       }
     ],
     "urlPaypal": "https://www.paypal.com/donate/?hosted_button_id=CBDECENM9CM8Q",
-    "urlDWGLoad": "https://apps.apple.com/us/app/dwg-load/id1470039790",
-    "urlPurInfo": "https://radio.dwgradio.net/de/dwg-pur/",
-    "urlAboutUs": "https://radio.dwgradio.net/de/ueber-uns/",
     "urlBankTransfer": "https://radio.dwgradio.net/de/spenden/"
   },
   "cz": {
@@ -39,14 +87,47 @@
     "urlHistoryRadio": "https://login.streamplus.de/app.php/de/api/stream_server/public/25530/title_history/10",
     "urlHistoryPur": "https://login.streamplus.de/app.php/de/api/stream_server/public/35237/title_history/10",
     "urlHistoryLyra": "https://login.streamplus.de/app.php/de/api/stream_server/public/35236/title_history/10",
-    "urlPreview": "https://radio.dwgradio.net/cz/",
-    "urlArchive": "",
     "contactMail": "info.cz@dwgradio.net",
+    "additionalInfosLinks": {
+      "radio": [
+        {
+          "name": "Na náhled programu",
+          "url": "https://radio.dwgradio.net/cz/",
+          "icon": "globe-outline"
+        },
+        {
+          "name": "DWGload - Databáze kázání",
+          "url": "https://apps.apple.com/de/app/dwg-load-cz/id1620746172",
+          "icon": "logo-apple-appstore"
+        },
+        {
+          "name": "O nás",
+          "url": "https://radio.dwgradio.net/cz/o-nas/",
+          "icon": "information-circle-outline"
+        }
+      ],
+      "pur": [
+        {
+          "name": "Informace o programu",
+          "url": "https://radio.dwgradio.net/cz/dwg-pur/",
+          "icon": "globe-outline"
+        },
+        {
+          "name": "O nás",
+          "url": "https://radio.dwgradio.net/cz/o-nas/",
+          "icon": "information-circle-outline"
+        }
+      ],
+      "lyra": [
+        {
+          "name": "O nás",
+          "url": "https://radio.dwgradio.net/cz/o-nas/",
+          "icon": "information-circle-outline"
+        }
+      ]
+    },
     "additionalContactLinks": [],
     "urlPaypal": "",
-    "urlDWGLoad": "https://apps.apple.com/de/app/dwg-load-cz/id1620746172",
-    "urlPurInfo": "https://radio.dwgradio.net/cz/dwg-pur/",
-    "urlAboutUs": "https://radio.dwgradio.net/cz/o-nas/",
     "urlBankTransfer": "https://radio.dwgradio.net/cz/dary/"
   },
   "ru": {
@@ -56,25 +137,63 @@
     "urlHistoryRadio": "https://login.streamplus.de/app.php/de/api/stream_server/public/32349/title_history/10",
     "urlHistoryPur": "https://login.streamplus.de/app.php/de/api/stream_server/public/36510/title_history/10",
     "urlHistoryLyra": "https://login.streamplus.de/app.php/de/api/stream_server/public/36511/title_history/10",
-    "urlPreview": "https://radio.dwgradio.net/ru/",
-    "urlArchive": "",
     "contactMail": "info.ru@dwgradio.net",
+    "additionalInfosLinks": {
+      "radio": [
+        {
+          "name": "Просмотр программы",
+          "url": "https://radio.dwgradio.net/ru/",
+          "icon": "globe-outline"
+        },
+        {
+          "name": "DWGload - База проповедей",
+          "url": "https://apps.apple.com/de/app/dwg-load-ru/id1630783108",
+          "icon": "logo-apple-appstore"
+        },
+        {
+          "name": "О нас",
+          "url": "https://radio.dwgradio.net/ru/o-nas/",
+          "icon": "information-circle-outline"
+        },
+        {
+          "name": "Телеграмм-канал",
+          "url": "https://t.me/DwgRadioRu",
+          "icon": "chatbox-outline"
+        }
+      ],
+      "pur": [
+        {
+          "name": "О нас",
+          "url": "https://radio.dwgradio.net/ru/o-nas/",
+          "icon": "information-circle-outline"
+        },
+        {
+          "name": "Телеграмм-канал",
+          "url": "https://t.me/DwgRadioRu",
+          "icon": "chatbox-outline"
+        }
+      ],
+      "lyra": [
+        {
+          "name": "О нас",
+          "url": "https://radio.dwgradio.net/ru/o-nas/",
+          "icon": "information-circle-outline"
+        },
+        {
+          "name": "Телеграмм-канал",
+          "url": "https://t.me/DwgRadioRu",
+          "icon": "chatbox-outline"
+        }
+      ]
+    },
     "additionalContactLinks": [
       {
         "name": "Телеграмм",
         "url": "https://t.me/DWGradio_ru",
         "icon": "chatbox-outline"
-      },
-      {
-        "name": "Телеграмм-канал",
-        "url": "https://t.me/DwgRadioRu",
-        "icon": "chatbox-outline"
       }
     ],
     "urlPaypal": "https://www.paypal.com/paypalme/DWGru",
-    "urlDWGLoad": "https://apps.apple.com/de/app/dwg-load-ru/id1630783108",
-    "urlPurInfo": "",
-    "urlAboutUs": "https://radio.dwgradio.net/ru/o-nas/",
     "urlBankTransfer": "https://radio.dwgradio.net/ru/pozhertvovat/"
   }
 }

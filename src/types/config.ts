@@ -3,6 +3,12 @@ export interface Config {
   configStrings: ConfigStrings;
 }
 
+interface Link {
+  name: string;
+  url: string;
+  icon: string;
+}
+
 interface ConfigBase {
   urlRadio: string;
   urlPur: string;
@@ -10,15 +16,11 @@ interface ConfigBase {
   urlHistoryRadio: string;
   urlHistoryPur: string;
   urlHistoryLyra: string;
-  urlPreview: string;
-  urlArchive: string;
   urlPaypal: string;
-  urlAboutUs: string;
-  urlDWGLoad: string;
-  urlPurInfo: string;
   urlBankTransfer: string;
   contactMail: string;
-  additionalContactLinks: { name: string; url: string; icon: string }[];
+  additionalInfosLinks: { radio: Link[]; pur: Link[]; lyra: Link[] };
+  additionalContactLinks: Link[];
 }
 
 interface ConfigStrings {
@@ -26,8 +28,6 @@ interface ConfigStrings {
   sleepTimer: string;
   minutes: string;
   off: string;
-  preview: string;
-  archive: string;
   mailButton: string;
   contact: string;
   additionalLinks: string;
@@ -38,10 +38,7 @@ interface ConfigStrings {
   radio: string;
   pur: string;
   lyra: string;
-  load: string;
   paypal: string;
-  programInfo: string;
-  aboutUs: string;
   bankTransfer: string;
   noConnectionMessage: string;
   accessCurrentTitle: string;

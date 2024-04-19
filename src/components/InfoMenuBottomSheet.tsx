@@ -15,7 +15,7 @@ import InfoMenuButton from './InfoMenuButton';
 
 const InfoMenuBottomSheet = observer(
   React.forwardRef((_, ref) => {
-    const { infoMenuStore } = useStores();
+    const { infoMenuStore, playerStore } = useStores();
 
     const initialSnapPoints = useMemo(() => ['1%', 'CONTENT_HEIGHT'], []);
     const { configBase, configStrings } = useConfig();
@@ -63,31 +63,25 @@ const InfoMenuBottomSheet = observer(
           <Text style={styles.infoString}>
             {infoMenuStore.channelInfo.infoString}
           </Text>
-          <Text style={styles.sectionTitle}>
-            {configStrings.additionalLinks}
-          </Text>
-          {infoMenuStore.channelInfoButtons.map((button) => {
-            if (!button.url) return null;
-            return (
-              <InfoMenuButton
-                key={`button_${button.title}`}
-                iconName={button.iconName}
-                title={button.title}
-                onPress={() => {
-                  Linking.openURL(button.url);
-                }}
-              />
-            );
-          })}
-          {configBase.urlAboutUs.length ? (
-            <InfoMenuButton
-              iconName="information-circle-outline"
-              title={configStrings.aboutUs}
-              onPress={() => {
-                Linking.openURL(configBase.urlAboutUs);
-              }}
-            />
-          ) : null}
+          {configBase.additionalInfosLinks[playerStore.selectedChannel].length >
+            0 && (
+            <Text style={styles.sectionTitle}>
+              {configStrings.additionalLinks}
+            </Text>
+          )}
+          {configBase.additionalInfosLinks[playerStore.selectedChannel].map(
+            (button) => {
+              if (!button.url) return null;
+              return (
+                <InfoMenuButton
+                  key={`button_${button.name}`}
+                  iconName={button.icon}
+                  title={button.name}
+                  onPress={() => Linking.openURL(button.url)}
+                />
+              );
+            }
+          )}
           {configBase.contactMail.length ? (
             <>
               <Text style={styles.sectionTitle}>{configStrings.contact}</Text>
