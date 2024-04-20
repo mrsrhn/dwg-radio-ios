@@ -14,7 +14,7 @@ function Layout() {
 
   const onInfoMenuButton = () => {
     if (!bottomSheetRef.current) return;
-    bottomSheetRef.current?.expand();
+    bottomSheetRef.current?.snapToIndex(1);
   };
 
   return (

@@ -17,7 +17,10 @@ const InfoMenuBottomSheet = observer(
   React.forwardRef((_, ref) => {
     const { infoMenuStore, playerStore } = useStores();
 
-    const initialSnapPoints = useMemo(() => ['1%', 'CONTENT_HEIGHT'], []);
+    const initialSnapPoints = useMemo(
+      () => ['1%', '90%', 'CONTENT_HEIGHT'],
+      []
+    );
     const { configBase, configStrings } = useConfig();
 
     // Workaround to make backdrop work: https://github.com/gorhom/react-native-bottom-sheet/issues/1362
