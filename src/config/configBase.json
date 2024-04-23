@@ -10,16 +10,6 @@
     "additionalInfosLinks": {
       "radio": [
         {
-          "name": "Zur Programmvorschau",
-          "url": "https://radio.dwgradio.net/de/",
-          "icon": "globe-outline"
-        },
-        {
-          "name": "Zum Programm-PDF-Archiv",
-          "url": "https://radio.dwgradio.net/de/programm-pdf-archiv/",
-          "icon": "archive-outline"
-        },
-        {
           "name": "DWGload - Predigtdatenbank",
           "url": "https://apps.apple.com/us/app/dwg-load/id1470039790",
           "icon": "logo-apple-appstore"
