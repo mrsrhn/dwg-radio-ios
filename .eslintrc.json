@@ -35,6 +35,7 @@
     "class-methods-use-this": "off",
     "react/no-array-index-key": "off",
     "@typescript-eslint/indent": "off",
-    "operator-linebreak": "off"
+    "operator-linebreak": "off",
+    "import/order": "off"
   }
 }
