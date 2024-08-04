@@ -11,6 +11,8 @@ interface Link {
 
 interface ConfigBase {
   urlRadio: string;
+  showProgramForRadio: boolean;
+  urlProgram: string;
   urlPur: string;
   urlLyra: string;
   urlHistoryRadio: string;
@@ -24,6 +26,7 @@ interface ConfigBase {
 }
 
 interface ConfigStrings {
+  program: string;
   lastPlayedString: string;
   sleepTimer: string;
   minutes: string;
@@ -50,4 +53,9 @@ interface ConfigStrings {
   accessPause: string;
   accessSwitchChannelForward: string;
   accessSwitchChannelBackward: string;
+  accessOpenInDwgLoad: string;
+  openInDwgLoad: string;
+  openInDwgLoadButton: string;
+  cancel: string;
+  today: string;
 }

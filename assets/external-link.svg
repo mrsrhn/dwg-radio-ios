@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg fill="currentColor" width="100%" height="100%" viewBox="0 0 800 800" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;">
+    <g transform="matrix(1.38202,0,0,1.38202,-177.969,-131.229)">
+        <g id="Interface---External_Link" serif:id="Interface / External_Link">
+            <path id="Vector" d="M333.34,166.667L273.34,166.667C236.003,166.667 217.321,166.667 203.06,173.933C190.516,180.324 180.324,190.516 173.933,203.06C166.667,217.321 166.667,236.003 166.667,273.34L166.667,526.673C166.667,564.01 166.667,582.67 173.933,596.93C180.324,609.473 190.516,619.683 203.06,626.073C217.307,633.333 235.966,633.333 273.23,633.333L526.77,633.333C564.033,633.333 582.667,633.333 596.913,626.073C609.457,619.683 619.683,609.463 626.073,596.92C633.333,582.673 633.333,564.033 633.333,526.77L633.333,466.667M666.667,300L666.667,133.333M666.667,133.333L500,133.333M666.667,133.333L433.333,366.667" style="fill:none;fill-rule:nonzero;stroke:#2F6702;stroke-width:66.67px;"/>
+        </g>
+    </g>
+</svg>

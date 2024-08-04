@@ -5,9 +5,12 @@ import BottomSheet, {
 import { observer } from 'mobx-react-lite';
 import React, { useMemo, useRef } from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
-import HistoryView from './HistoryView';
 import PlayerControls from './PlayerControls';
 import Title from './Title';
+import ProgramView from './ProgramView';
+import useConfig from '../hooks/useConfig';
+import useStores from '../hooks/useStores';
+import HistoryView from './HistoryView';
 
 interface DWGBottomSheetProps {
   onInfoMenuButton: () => void;
@@ -15,8 +18,11 @@ interface DWGBottomSheetProps {
 
 const DWGBottomSheet: React.FC<DWGBottomSheetProps> = observer(
   ({ onInfoMenuButton }) => {
+    const { configBase } = useConfig();
+    const { playerStore } = useStores();
+
     const bottomSheetRef = useRef<BottomSheet>(null);
-    const initialSnapPoints = useMemo(() => ['50%', 'CONTENT_HEIGHT'], []);
+    const initialSnapPoints = useMemo(() => ['50%', '90%'], []);
 
     const {
       animatedHandleHeight,
@@ -43,7 +49,12 @@ const DWGBottomSheet: React.FC<DWGBottomSheetProps> = observer(
         >
           <Title />
           <PlayerControls onInfoMenuButton={onInfoMenuButton} />
-          <HistoryView />
+          {configBase.showProgramForRadio &&
+          playerStore.selectedChannel === 'radio' ? (
+            <ProgramView />
+          ) : (
+            <HistoryView />
+          )}
         </BottomSheetScrollView>
       </BottomSheet>
     );
@@ -54,7 +65,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     justifyContent: 'space-between',
-    paddingBottom: 20,
+    paddingBottom: 150,
   },
 });
 
