@@ -1,11 +1,11 @@
 import React from 'react';
-import { observer } from 'mobx-react-lite';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
+import HistoryViewItem from './HistoryViewItem';
+import getTimeFromIsoDate from '../utils/getTimeFromIsoDate';
 import useStores from '../hooks/useStores';
 import Colors from '../Colors';
 import useConfig from '../hooks/useConfig';
-import HistoryViewItem from './HistoryViewItem';
-import getTimeFromIsoDate from '../utils/getTimeFromIsoDate';
+import { observer } from 'mobx-react-lite';
 
 const HistoryView = observer(() => {
   const { historyStore } = useStores();
@@ -14,6 +14,7 @@ const HistoryView = observer(() => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{configStrings.lastPlayedString}</Text>
+
       {historyStore.currentHistory.slice(1).map((item, index) => (
         <View key={`${item.raw_title}_${index}`}>
           <HistoryViewItem
@@ -37,6 +38,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textAlign: 'center',
     color: Colors.dwgDarkColor,
+    fontWeight: 'bold',
   },
 });
 

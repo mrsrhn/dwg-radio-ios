@@ -25,7 +25,13 @@
     "accessContinue": "Wiedergabe fortsetzen",
     "accessPause": "Wiedergabe pausieren",
     "accessSwitchChannelForward": "Kanal wechseln vorwärts",
-    "accessSwitchChannelBackward": "Kanal wechseln zurück"
+    "accessSwitchChannelBackward": "Kanal wechseln zurück",
+    "accessOpenInDwgLoad": "In DWG Load öffnen",
+    "accessShowProgramOfDay": "Programm für {{day}} anzeigen",
+    "openInDwgLoad": "Wollen Sie den Vortrag in DWGload öffnen?",
+    "openInDwgLoadButton": "Zu DWGload",
+    "cancel": "Abbrechen",
+    "today": "Heute"
   },
   "cz": {
     "noConnectionMessage": "Žádné připojení k internetu",
@@ -53,7 +59,13 @@
     "accessContinue": "Pokračovat ve přehrávání",
     "accessPause": "Pozastavit přehrávání",
     "accessSwitchChannelForward": "Přepnout kanál dopředu",
-    "accessSwitchChannelBackward": "Přepnout kanál zpět"
+    "accessSwitchChannelBackward": "Přepnout kanál zpět",
+    "accessOpenInDwgLoad": "In DWG Load öffnen",
+    "accessShowProgramOfDay": "",
+    "openInDwgLoad": "Wollen Sie den Vortrag in DWGload öffnen?",
+    "openInDwgLoadButton": "Zu DWGload",
+    "cancel": "Abbrechen",
+    "today": "Heute"
   },
   "ru": {
     "noConnectionMessage": "Отсутствует подключение к интернету",
@@ -81,6 +93,12 @@
     "accessContinue": "Продолжить воспроизведение",
     "accessPause": "Приостановить воспроизведение",
     "accessSwitchChannelForward": "Переключить канал вперёд",
-    "accessSwitchChannelBackward": "Переключить канал назад"
+    "accessSwitchChannelBackward": "Переключить канал назад",
+    "accessOpenInDwgLoad": "In DWG Load öffnen",
+    "accessShowProgramOfDay": "",
+    "openInDwgLoad": "Wollen Sie den Vortrag in DWGload öffnen?",
+    "openInDwgLoadButton": "Zu DWGload",
+    "cancel": "Abbrechen",
+    "today": "Heute"
   }
 }
