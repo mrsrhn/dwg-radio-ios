@@ -11,33 +11,19 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
     "ios": {
-      "supportsTablet": false,
-      "infoPlist": {
-        "UIBackgroundModes": [
-          "audio"
-        ]
-      },
+      "supportsTablet": true,
       "bundleIdentifier": "mariusrhein.DWGRadio"
     },
     "android": {
-      "package": "com.yourcompany.yourappname",
-      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "net.dwg_load.dwgload.de"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "6f6a86fa-79dc-49f3-b301-1132ff50ac0f"
-      }
     }
   }
 }
