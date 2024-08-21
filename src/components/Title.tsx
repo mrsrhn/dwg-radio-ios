@@ -25,6 +25,7 @@ const Title = observer(() => {
 const styles = StyleSheet.create({
   container: {
     alignContent: 'center',
+    marginHorizontal: 20,
   },
   title: {
     textAlign: 'center',

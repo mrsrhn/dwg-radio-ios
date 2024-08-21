@@ -1,9 +1,6 @@
-import BottomSheet, {
-  BottomSheetScrollView,
-  useBottomSheetDynamicSnapPoints,
-} from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { observer } from 'mobx-react-lite';
-import React, { useMemo, useRef } from 'react';
+import React, { useRef } from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
 import PlayerControls from './PlayerControls';
 import Title from './Title';
@@ -22,33 +19,22 @@ const DWGBottomSheet: React.FC<DWGBottomSheetProps> = observer(
     const { playerStore } = useStores();
 
     const bottomSheetRef = useRef<BottomSheet>(null);
-    const initialSnapPoints = useMemo(() => ['50%', '90%'], []);
-
-    const {
-      animatedHandleHeight,
-      animatedSnapPoints,
-      animatedContentHeight,
-      handleContentLayout,
-    } = useBottomSheetDynamicSnapPoints(initialSnapPoints);
 
     return (
       <BottomSheet
         ref={bottomSheetRef}
         index={0}
         animateOnMount={false}
-        snapPoints={animatedSnapPoints}
-        handleHeight={animatedHandleHeight}
-        contentHeight={animatedContentHeight}
+        snapPoints={['50%', '90%']}
       >
+        <Title />
+        <PlayerControls onInfoMenuButton={onInfoMenuButton} />
         <BottomSheetScrollView
-          onLayout={handleContentLayout}
           contentContainerStyle={styles.container}
           style={{
             maxHeight: Dimensions.get('window').height,
           }}
         >
-          <Title />
-          <PlayerControls onInfoMenuButton={onInfoMenuButton} />
           {configBase.showProgramForRadio &&
           playerStore.selectedChannel === 'radio' ? (
             <ProgramView />
@@ -65,7 +51,7 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 20,
     justifyContent: 'space-between',
-    paddingBottom: 150,
+    paddingBottom: 20,
   },
 });
 

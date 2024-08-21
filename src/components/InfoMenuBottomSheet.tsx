@@ -1,12 +1,11 @@
 import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetScrollView,
-  useBottomSheetDynamicSnapPoints,
 } from '@gorhom/bottom-sheet';
 import { BottomSheetMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
 import { Image } from 'expo-image';
 import { observer } from 'mobx-react-lite';
-import React, { Ref, useCallback, useMemo } from 'react';
+import React, { Ref } from 'react';
 import { StyleSheet, Linking, Text, Dimensions } from 'react-native';
 import Colors from '../Colors';
 import useConfig from '../hooks/useConfig';
@@ -17,44 +16,20 @@ const InfoMenuBottomSheet = observer(
   React.forwardRef((_, ref) => {
     const { infoMenuStore, playerStore } = useStores();
 
-    const initialSnapPoints = useMemo(
-      () => ['1%', '90%', 'CONTENT_HEIGHT'],
-      []
-    );
     const { configBase, configStrings } = useConfig();
-
-    // Workaround to make backdrop work: https://github.com/gorhom/react-native-bottom-sheet/issues/1362
-    const handleSheetChanges = useCallback(
-      (index: number) => {
-        if (index === 0) {
-          ref?.current?.close();
-        }
-      },
-      [ref]
-    );
-
-    const {
-      animatedHandleHeight,
-      animatedSnapPoints,
-      animatedContentHeight,
-      handleContentLayout,
-    } = useBottomSheetDynamicSnapPoints(initialSnapPoints);
 
     return (
       <BottomSheet
-        ref={ref as Ref<BottomSheetMethods>}
         index={-1}
+        snapPoints={['90%']}
+        ref={ref as Ref<BottomSheetMethods>}
         backgroundStyle={{ backgroundColor: Colors.dwgBackgroundColor }}
         animateOnMount={false}
-        snapPoints={animatedSnapPoints}
-        handleHeight={animatedHandleHeight}
-        contentHeight={animatedContentHeight}
+        enableDynamicSizing
         enablePanDownToClose
         backdropComponent={BottomSheetBackdrop}
-        onChange={handleSheetChanges}
       >
         <BottomSheetScrollView
-          onLayout={handleContentLayout}
           contentContainerStyle={styles.container}
           style={{
             maxHeight: Dimensions.get('window').height,
