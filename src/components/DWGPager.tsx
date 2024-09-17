@@ -112,7 +112,7 @@ const DWGPager = observer(() => {
 
   const { width } = Dimensions.get('window');
   const scrollOffsetAnimatedValue = React.useRef(new Animated.Value(0)).current;
-  const positionAnimatedValue = React.useRef(new Animated.Value(0)).current;
+  const positionAnimatedValue = React.useRef(new Animated.Value(1)).current;
   const inputRange = [0, CHANNELS.length];
   const scrollX = Animated.add(
     scrollOffsetAnimatedValue,
