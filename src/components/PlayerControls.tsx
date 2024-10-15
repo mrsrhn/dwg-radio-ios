@@ -1,11 +1,12 @@
 import React from 'react';
 import { observer } from 'mobx-react-lite';
-import { View, StyleSheet, Pressable } from 'react-native';
+import { View, StyleSheet, Pressable, ActivityIndicator } from 'react-native';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import useStores from '../hooks/useStores';
 import Colors from '../Colors';
 import SleepTimerButton from './SleepTimerButton';
 import useConfig from '../hooks/useConfig';
+import { State } from 'react-native-track-player';
 
 const PLAYBUTTON_SIZE = 70;
 
@@ -17,6 +18,8 @@ const PlayerControls: React.FC<PlayerControlsProps> = observer(
   ({ onInfoMenuButton }) => {
     const { playerStore } = useStores();
     const { configStrings } = useConfig();
+
+    const isBuffering = playerStore.playbackState === State.Buffering;
 
     const playButtonIconName = playerStore.isPlaying
       ? 'pause-circle-outline'
@@ -45,14 +48,27 @@ const PlayerControls: React.FC<PlayerControlsProps> = observer(
             }
             accessibilityRole="button"
           >
-            <MaterialIcons
-              color={Colors.dwgDarkColor}
+            <View
               style={{
                 height: PLAYBUTTON_SIZE,
               }}
-              size={PLAYBUTTON_SIZE}
-              name={playButtonIconName}
-            />
+            >
+              {isBuffering ? (
+                <ActivityIndicator
+                  color={Colors.dwgDarkColor}
+                  size={PLAYBUTTON_SIZE}
+                />
+              ) : (
+                <MaterialIcons
+                  color={Colors.dwgDarkColor}
+                  style={{
+                    height: PLAYBUTTON_SIZE,
+                  }}
+                  size={PLAYBUTTON_SIZE}
+                  name={playButtonIconName}
+                />
+              )}
+            </View>
           </Pressable>
         </View>
         <View style={styles.sideButtonsContainer}>

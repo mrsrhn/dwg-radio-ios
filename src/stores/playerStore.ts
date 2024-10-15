@@ -4,7 +4,7 @@ import TrackPlayer, {
   Capability,
   State,
   Event,
-  PlaybackStateEvent,
+  PlaybackState,
   IOSCategory,
   IOSCategoryMode,
   IOSCategoryOptions,
@@ -17,6 +17,8 @@ export type Channel = 'lyra' | 'radio' | 'pur';
 
 class PlayerStore {
   isConnected = true;
+
+  playbackState: State = State.None;
 
   isLoaded = false;
 
@@ -31,6 +33,7 @@ class PlayerStore {
   constructor(config: Config) {
     makeObservable(this, {
       isPlaying: observable,
+      playbackState: observable,
       selectedChannel: observable,
       currentMetaData: observable,
       isConnected: observable,
@@ -88,8 +91,8 @@ class PlayerStore {
   });
 
   updateChannel = async (selectedChannel: Channel) => {
-    const currentTrack = await TrackPlayer.getCurrentTrack();
-    if (currentTrack === null) return;
+    const currentTrack = await TrackPlayer.getActiveTrackIndex();
+    if (currentTrack === undefined) return;
 
     switch (selectedChannel) {
       case 'lyra':
@@ -177,9 +180,15 @@ class PlayerStore {
     });
   };
 
-  private onPlaybackStateChange = async (event: PlaybackStateEvent) => {
+  setPlaybackState = action((playbackState: State) => {
+    this.playbackState = playbackState;
+  });
+
+  private onPlaybackStateChange = async (event: PlaybackState) => {
+    this.setPlaybackState(event.state);
     this.updateConnectionState();
-    console.log(event.state);
+    console.log('changed state', event.state);
+
     switch (event.state) {
       case State.Playing:
         this.setIsPlaying(true);
