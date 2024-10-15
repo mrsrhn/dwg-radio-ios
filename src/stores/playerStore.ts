@@ -9,6 +9,7 @@ import TrackPlayer, {
   IOSCategoryMode,
   IOSCategoryOptions,
   PitchAlgorithm,
+  AppKilledPlaybackBehavior,
 } from 'react-native-track-player';
 import * as Network from 'expo-network';
 import { Config } from '../types/config';
@@ -59,6 +60,11 @@ class PlayerStore {
 
     await TrackPlayer.updateOptions({
       capabilities: [Capability.Play, Capability.Pause],
+      android: {
+        // This is the default behavior
+        appKilledPlaybackBehavior:
+          AppKilledPlaybackBehavior.StopPlaybackAndRemoveNotification,
+      },
     });
 
     const channels = [
