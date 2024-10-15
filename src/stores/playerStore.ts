@@ -62,8 +62,7 @@ class PlayerStore {
       capabilities: [Capability.Play, Capability.Pause],
       android: {
         // This is the default behavior
-        appKilledPlaybackBehavior:
-          AppKilledPlaybackBehavior.StopPlaybackAndRemoveNotification,
+        appKilledPlaybackBehavior: AppKilledPlaybackBehavior.PausePlayback,
       },
     });
 
