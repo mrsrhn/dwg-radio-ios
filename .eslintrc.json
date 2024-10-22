@@ -31,5 +31,6 @@
     "operator-linebreak": "off",
     "import/order": "off",
     "@typescript-eslint/no-require-imports": "off"
-  }
+  },
+  "ignorePatterns": ["android/"]
 }
