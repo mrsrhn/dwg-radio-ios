@@ -105,7 +105,7 @@ const InfoMenuBottomSheet = observer(
                 <Image
                   style={{ flex: 1, height: 20 }}
                   source={require('../../assets/paypalLogo.png')}
-                  contentFit="scale-down"
+                  contentFit="contain"
                 />
               }
             />
