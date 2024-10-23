@@ -152,19 +152,14 @@ class PlayerStore {
   };
 
   play = async () => {
-    await this.seekToLivePosition();
     await TrackPlayer.play();
+    this.seekToLivePosition();
   };
 
   private seekToLivePosition = async () => {
-    // React Native Track Player cannot seek to the live position in a stream,
-    // so we switch channels for a moment
-    if (this.selectedChannel === 'pur') {
-      await TrackPlayer.skipToPrevious();
-      await TrackPlayer.skipToNext();
-    } else {
-      await TrackPlayer.skipToNext();
-      await TrackPlayer.skipToPrevious();
+    const { buffered } = await TrackPlayer.getProgress();
+    if (buffered) {
+      TrackPlayer.seekTo(buffered - 5);
     }
   };
 
